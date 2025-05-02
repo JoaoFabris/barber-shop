@@ -256,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.6.0
-   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
+   * Prisma Client JS version: 6.7.0
+   * Query Engine version: 3cff47a7f5d65c3ea74883f1d736e41d68ce91ed
    */
   export type PrismaVersion = {
     client: string
@@ -3385,6 +3385,7 @@ export namespace Prisma {
     price: Decimal | null
     barbershopId: string | null
     description: string | null
+    imageUrl: string | null
   }
 
   export type ServiceMaxAggregateOutputType = {
@@ -3393,6 +3394,7 @@ export namespace Prisma {
     price: Decimal | null
     barbershopId: string | null
     description: string | null
+    imageUrl: string | null
   }
 
   export type ServiceCountAggregateOutputType = {
@@ -3401,6 +3403,7 @@ export namespace Prisma {
     price: number
     barbershopId: number
     description: number
+    imageUrl: number
     _all: number
   }
 
@@ -3419,6 +3422,7 @@ export namespace Prisma {
     price?: true
     barbershopId?: true
     description?: true
+    imageUrl?: true
   }
 
   export type ServiceMaxAggregateInputType = {
@@ -3427,6 +3431,7 @@ export namespace Prisma {
     price?: true
     barbershopId?: true
     description?: true
+    imageUrl?: true
   }
 
   export type ServiceCountAggregateInputType = {
@@ -3435,6 +3440,7 @@ export namespace Prisma {
     price?: true
     barbershopId?: true
     description?: true
+    imageUrl?: true
     _all?: true
   }
 
@@ -3530,6 +3536,7 @@ export namespace Prisma {
     price: Decimal
     barbershopId: string
     description: string
+    imageUrl: string
     _count: ServiceCountAggregateOutputType | null
     _avg: ServiceAvgAggregateOutputType | null
     _sum: ServiceSumAggregateOutputType | null
@@ -3557,6 +3564,7 @@ export namespace Prisma {
     price?: boolean
     barbershopId?: boolean
     description?: boolean
+    imageUrl?: boolean
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
     Booking?: boolean | Service$BookingArgs<ExtArgs>
     _count?: boolean | ServiceCountOutputTypeDefaultArgs<ExtArgs>
@@ -3568,6 +3576,7 @@ export namespace Prisma {
     price?: boolean
     barbershopId?: boolean
     description?: boolean
+    imageUrl?: boolean
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -3577,6 +3586,7 @@ export namespace Prisma {
     price?: boolean
     barbershopId?: boolean
     description?: boolean
+    imageUrl?: boolean
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["service"]>
 
@@ -3586,9 +3596,10 @@ export namespace Prisma {
     price?: boolean
     barbershopId?: boolean
     description?: boolean
+    imageUrl?: boolean
   }
 
-  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "barbershopId" | "description", ExtArgs["result"]["service"]>
+  export type ServiceOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "price" | "barbershopId" | "description" | "imageUrl", ExtArgs["result"]["service"]>
   export type ServiceInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
     Booking?: boolean | Service$BookingArgs<ExtArgs>
@@ -3613,6 +3624,7 @@ export namespace Prisma {
       price: Prisma.Decimal
       barbershopId: string
       description: string
+      imageUrl: string
     }, ExtArgs["result"]["service"]>
     composites: {}
   }
@@ -4043,6 +4055,7 @@ export namespace Prisma {
     readonly price: FieldRef<"Service", 'Decimal'>
     readonly barbershopId: FieldRef<"Service", 'String'>
     readonly description: FieldRef<"Service", 'String'>
+    readonly imageUrl: FieldRef<"Service", 'String'>
   }
     
 
@@ -5605,7 +5618,8 @@ export namespace Prisma {
     name: 'name',
     price: 'price',
     barbershopId: 'barbershopId',
-    description: 'description'
+    description: 'description',
+    imageUrl: 'imageUrl'
   };
 
   export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
@@ -5813,6 +5827,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     barbershopId?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
+    imageUrl?: StringFilter<"Service"> | string
     barbershop?: XOR<BarbershopScalarRelationFilter, BarbershopWhereInput>
     Booking?: BookingListRelationFilter
   }
@@ -5823,6 +5838,7 @@ export namespace Prisma {
     price?: SortOrder
     barbershopId?: SortOrder
     description?: SortOrder
+    imageUrl?: SortOrder
     barbershop?: BarbershopOrderByWithRelationInput
     Booking?: BookingOrderByRelationAggregateInput
   }
@@ -5836,6 +5852,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     barbershopId?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
+    imageUrl?: StringFilter<"Service"> | string
     barbershop?: XOR<BarbershopScalarRelationFilter, BarbershopWhereInput>
     Booking?: BookingListRelationFilter
   }, "id">
@@ -5846,6 +5863,7 @@ export namespace Prisma {
     price?: SortOrder
     barbershopId?: SortOrder
     description?: SortOrder
+    imageUrl?: SortOrder
     _count?: ServiceCountOrderByAggregateInput
     _avg?: ServiceAvgOrderByAggregateInput
     _max?: ServiceMaxOrderByAggregateInput
@@ -5862,6 +5880,7 @@ export namespace Prisma {
     price?: DecimalWithAggregatesFilter<"Service"> | Decimal | DecimalJsLike | number | string
     barbershopId?: StringWithAggregatesFilter<"Service"> | string
     description?: StringWithAggregatesFilter<"Service"> | string
+    imageUrl?: StringWithAggregatesFilter<"Service"> | string
   }
 
   export type BookingWhereInput = {
@@ -6031,6 +6050,7 @@ export namespace Prisma {
     name: string
     price: Decimal | DecimalJsLike | number | string
     description: string
+    imageUrl: string
     barbershop: BarbershopCreateNestedOneWithoutServicesInput
     Booking?: BookingCreateNestedManyWithoutServiceInput
   }
@@ -6041,6 +6061,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     barbershopId: string
     description: string
+    imageUrl: string
     Booking?: BookingUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -6049,6 +6070,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     barbershop?: BarbershopUpdateOneRequiredWithoutServicesNestedInput
     Booking?: BookingUpdateManyWithoutServiceNestedInput
   }
@@ -6059,6 +6081,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     Booking?: BookingUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -6068,6 +6091,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     barbershopId: string
     description: string
+    imageUrl: string
   }
 
   export type ServiceUpdateManyMutationInput = {
@@ -6075,6 +6099,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type ServiceUncheckedUpdateManyInput = {
@@ -6083,6 +6108,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingCreateInput = {
@@ -6294,6 +6320,7 @@ export namespace Prisma {
     price?: SortOrder
     barbershopId?: SortOrder
     description?: SortOrder
+    imageUrl?: SortOrder
   }
 
   export type ServiceAvgOrderByAggregateInput = {
@@ -6306,6 +6333,7 @@ export namespace Prisma {
     price?: SortOrder
     barbershopId?: SortOrder
     description?: SortOrder
+    imageUrl?: SortOrder
   }
 
   export type ServiceMinOrderByAggregateInput = {
@@ -6314,6 +6342,7 @@ export namespace Prisma {
     price?: SortOrder
     barbershopId?: SortOrder
     description?: SortOrder
+    imageUrl?: SortOrder
   }
 
   export type ServiceSumOrderByAggregateInput = {
@@ -6837,6 +6866,7 @@ export namespace Prisma {
     name: string
     price: Decimal | DecimalJsLike | number | string
     description: string
+    imageUrl: string
     Booking?: BookingCreateNestedManyWithoutServiceInput
   }
 
@@ -6845,6 +6875,7 @@ export namespace Prisma {
     name: string
     price: Decimal | DecimalJsLike | number | string
     description: string
+    imageUrl: string
     Booking?: BookingUncheckedCreateNestedManyWithoutServiceInput
   }
 
@@ -6909,6 +6940,7 @@ export namespace Prisma {
     price?: DecimalFilter<"Service"> | Decimal | DecimalJsLike | number | string
     barbershopId?: StringFilter<"Service"> | string
     description?: StringFilter<"Service"> | string
+    imageUrl?: StringFilter<"Service"> | string
   }
 
   export type BookingUpsertWithWhereUniqueWithoutBarbershopInput = {
@@ -7037,6 +7069,7 @@ export namespace Prisma {
     name: string
     price: Decimal | DecimalJsLike | number | string
     description: string
+    imageUrl: string
     barbershop: BarbershopCreateNestedOneWithoutServicesInput
   }
 
@@ -7046,6 +7079,7 @@ export namespace Prisma {
     price: Decimal | DecimalJsLike | number | string
     barbershopId: string
     description: string
+    imageUrl: string
   }
 
   export type ServiceCreateOrConnectWithoutBookingInput = {
@@ -7111,6 +7145,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     barbershop?: BarbershopUpdateOneRequiredWithoutServicesNestedInput
   }
 
@@ -7120,6 +7155,7 @@ export namespace Prisma {
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type BarbershopUpsertWithoutBookingsInput = {
@@ -7186,6 +7222,7 @@ export namespace Prisma {
     name: string
     price: Decimal | DecimalJsLike | number | string
     description: string
+    imageUrl: string
   }
 
   export type BookingCreateManyBarbershopInput = {
@@ -7201,6 +7238,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     Booking?: BookingUpdateManyWithoutServiceNestedInput
   }
 
@@ -7209,6 +7247,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
     Booking?: BookingUncheckedUpdateManyWithoutServiceNestedInput
   }
 
@@ -7217,6 +7256,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     price?: DecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string
     description?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingUpdateWithoutBarbershopInput = {
