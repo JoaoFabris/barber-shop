@@ -9,7 +9,7 @@ import BarbershopItem from "./_components/barbershop-item";
 
 export default async function Home() {
 
-  const barbershops = await db.barbershop.findMany({});
+  const barbershops = await db.barbershop.findMany({}); 
   
   return (
     <div>
@@ -20,7 +20,7 @@ export default async function Home() {
         <p className="capitalize text-sm">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
             locale: ptBR,
-          })}210994
+          })}
           
         </p>
       </div>
