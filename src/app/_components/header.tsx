@@ -9,7 +9,7 @@ const Header = () => {
     <Card>
       <CardContent className="px-5 py-8 justify-between flex flex-row">
         <Link href="/">
-          <Image src="/Logo.png" alt="FSW Barber" height={18} width={180} />
+          <Image src="/Imagem2.png" alt="FSW Barber" height={5} width={120} />
         </Link>
         <Button variant="outline" size="icon">
           <MenuIcon size={16} />
