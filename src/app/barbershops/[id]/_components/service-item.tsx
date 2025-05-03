@@ -1,13 +1,27 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Service } from "@/generated/prisma";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
 
 interface ServiceItemProps {
   service: Omit<Service, "price"> & { price: number };
+  isAuthenticated?: boolean;
 }
 
-const ServiceItem = ({ service }: ServiceItemProps) => {
+const ServiceItem = ({ service, isAuthenticated }: ServiceItemProps) => {
+
+  const handleBookingClick = () => {
+    if (!isAuthenticated) {
+      return signIn()
+    }
+
+    // Aqui você pode adicionar a lógica para reservar o serviço
+    console.log(`Reservando o serviço: ${service.name}`);
+  }
+
   return (
     <Card>
       <CardContent className="p-3">
@@ -31,7 +45,7 @@ const ServiceItem = ({ service }: ServiceItemProps) => {
                   currency: "BRL",
                 }).format(service.price)}
               </p>
-              <Button variant="secondary">Reservar</Button>
+              <Button variant="secondary" onClick={handleBookingClick}>Reservar</Button>
             </div>
           </div>
         </div>

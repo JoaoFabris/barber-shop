@@ -1,12 +1,16 @@
 import { db } from "@/app/_lib/prisma";
 import BarberShopInfo from "./_components/barbershop-info";
 import ServiceItem from "./_components/service-item";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface BarbershopDetailsPageProps {
   params: Promise<{ id?: string }> | { id?: string };
 }
 
 const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
+
+    const session = await getServerSession(authOptions); // n pode usar o useSession aqui, pois é um componente de servidor
     const resolvedParams = await params;
     
     if (!resolvedParams.id) return null;
@@ -37,10 +41,10 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
     };
 
     return (
-        <div>
+        <div className="px-5 flex flex-col gap-4 py-6">
             <BarberShopInfo barbershop={serializedBarbershop} />
             {serializedServices.map(service => (
-                <ServiceItem key={service.id} service={service} />
+                <ServiceItem key={service.id} service={service} isAuthenticated={!!session?.user}/>
             ))}
         </div>
     );
