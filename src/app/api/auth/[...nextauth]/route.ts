@@ -12,6 +12,20 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
     }),
   ],
+
+  //Callback chamado toda vez que uma sessão é criada ou acessada.
+  //Acrescenta o id do usuário à sessão retornada pro frontend (não vem por padrão).
+  // Isso é útil para quando você quer acessar o id do usuário no frontend.
+  callbacks: {
+    async session({ session, user }) {
+      session.user = { ...session.user, id: user.id } as {
+        id: string;
+        name: string;
+        email: string;
+      };
+      return session;
+    },
+  },
 };
 
 const handler = NextAuth(authOptions);

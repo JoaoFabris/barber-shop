@@ -12,12 +12,14 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { Barbershop, Service } from "@/generated/prisma";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { generateDayTimeList } from "../_helpers/hours";
-import { format } from "date-fns";
+import { format, setHours, setMinutes } from "date-fns";
+import { saveBooking } from "../_actions/save-booking";
+import { Loader2 } from "lucide-react";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -32,6 +34,9 @@ const ServiceItem = ({
 }: ServiceItemProps) => {
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [hour, setHour] = useState<string | undefined>(undefined);
+  const [submitLoading, setSubmitLoading] = useState(false);
+
+  const { data } = useSession();
 
   const handleHoutrClick = (time: string) => {
     setHour(time);
@@ -40,11 +45,42 @@ const ServiceItem = ({
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
+    console.log(date);
+    console.log(hour);
   };
 
   const handleBookingClick = () => {
     if (!isAuthenticated) {
       return signIn();
+    }
+  };
+
+  const handleBookingSubmit = async () => {
+    if (!data?.user) {
+      signIn();
+      return;
+    }
+    setSubmitLoading(true);
+    try {
+      if (!hour || !date || !data?.user) {
+        return;
+      }
+      const dateHour = Number(hour?.split(":")[0]);
+      const dateMinute = Number(hour?.split(":")[1]);
+
+      const newDate = setMinutes(setHours(date, dateHour), dateMinute);
+      // salvo no bd no formato UTC, então preciso converter para o formato UTC e no frontend a gente mostra no formato local, por isso vamos ver o horario diferente no bd
+      await saveBooking({
+        serviceId: service.id,
+        barbershopId: barbershop.id,
+        date: newDate,
+        userId: (data.user as { id: string }).id,
+      });
+      console.log("Reserva feita com sucesso", newDate);
+    } catch (error) {
+      console.log("Error booking service", error);
+    } finally {
+      setSubmitLoading(false);
     }
   };
 
@@ -76,7 +112,7 @@ const ServiceItem = ({
               </p>
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="secondary" onClick={handleBookingClick}>
+                  <Button variant="secondary">
                     Reservar
                   </Button>
                 </SheetTrigger>
@@ -173,10 +209,16 @@ const ServiceItem = ({
                     <SheetFooter className="flex justify-end mt-4">
                       <Button
                         variant="default"
-                        onClick={handleBookingClick}
-                        disabled={!date || !hour}
+                        onClick={handleBookingSubmit}
+                        disabled={!date || !hour || submitLoading}
                       >
-                        Reservar
+                        {submitLoading ? (
+                          <Loader2 className="animate-spin" size={16} />
+                        ) : (
+                          <span>
+                            {data?.user ? "Reservar" : "Fazer login para reservar"}
+                          </span>
+                        )}
                       </Button>
                     </SheetFooter>
                   </div>
