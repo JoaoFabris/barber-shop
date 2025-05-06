@@ -20,6 +20,8 @@ import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from "date-fns";
 import { saveBooking } from "../_actions/save-booking";
 import { Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -35,7 +37,9 @@ const ServiceItem = ({
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [hour, setHour] = useState<string | undefined>(undefined);
   const [submitLoading, setSubmitLoading] = useState(false);
+  const[sheetOpen, setSheetOpen] = useState(false);
 
+  const router = useRouter();
   const { data } = useSession();
 
   const handleHoutrClick = (time: string) => {
@@ -49,14 +53,8 @@ const ServiceItem = ({
     console.log(hour);
   };
 
-  const handleBookingClick = () => {
-    if (!isAuthenticated) {
-      return signIn();
-    }
-  };
-
   const handleBookingSubmit = async () => {
-    if (!data?.user) {
+    if (!data?.user || !isAuthenticated) {
       signIn();
       return;
     }
@@ -77,6 +75,20 @@ const ServiceItem = ({
         userId: (data.user as { id: string }).id,
       });
       console.log("Reserva feita com sucesso", newDate);
+
+      setHour(undefined);
+      setDate(undefined);
+      // resetar o estado do componente
+      setSheetOpen(false);
+      toast("Reserva realizada com sucesso!", {
+        description: format(newDate, "dd 'de' MMMM 'às' HH:mm", {
+          locale: ptBR,
+        }),
+        action: {
+          label: "Visualizar",
+          onClick: () => router.push("/bookings"),
+        },
+      })
     } catch (error) {
       console.log("Error booking service", error);
     } finally {
@@ -110,7 +122,7 @@ const ServiceItem = ({
                   currency: "BRL",
                 }).format(service.price)}
               </p>
-              <Sheet>
+              <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
                   <Button variant="secondary">
                     Reservar
