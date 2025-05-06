@@ -151,8 +151,7 @@ exports.Prisma.BookingScalarFieldEnum = {
   userId: 'userId',
   serviceId: 'serviceId',
   barbershopId: 'barbershopId',
-  date: 'date',
-  status: 'status'
+  date: 'date'
 };
 
 exports.Prisma.AccountScalarFieldEnum = {

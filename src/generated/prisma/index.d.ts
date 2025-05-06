@@ -4922,7 +4922,6 @@ export namespace Prisma {
     serviceId: string | null
     barbershopId: string | null
     date: Date | null
-    status: string | null
   }
 
   export type BookingMaxAggregateOutputType = {
@@ -4931,7 +4930,6 @@ export namespace Prisma {
     serviceId: string | null
     barbershopId: string | null
     date: Date | null
-    status: string | null
   }
 
   export type BookingCountAggregateOutputType = {
@@ -4940,7 +4938,6 @@ export namespace Prisma {
     serviceId: number
     barbershopId: number
     date: number
-    status: number
     _all: number
   }
 
@@ -4951,7 +4948,6 @@ export namespace Prisma {
     serviceId?: true
     barbershopId?: true
     date?: true
-    status?: true
   }
 
   export type BookingMaxAggregateInputType = {
@@ -4960,7 +4956,6 @@ export namespace Prisma {
     serviceId?: true
     barbershopId?: true
     date?: true
-    status?: true
   }
 
   export type BookingCountAggregateInputType = {
@@ -4969,7 +4964,6 @@ export namespace Prisma {
     serviceId?: true
     barbershopId?: true
     date?: true
-    status?: true
     _all?: true
   }
 
@@ -5051,7 +5045,6 @@ export namespace Prisma {
     serviceId: string
     barbershopId: string
     date: Date
-    status: string
     _count: BookingCountAggregateOutputType | null
     _min: BookingMinAggregateOutputType | null
     _max: BookingMaxAggregateOutputType | null
@@ -5077,7 +5070,6 @@ export namespace Prisma {
     serviceId?: boolean
     barbershopId?: boolean
     date?: boolean
-    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
@@ -5089,7 +5081,6 @@ export namespace Prisma {
     serviceId?: boolean
     barbershopId?: boolean
     date?: boolean
-    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
@@ -5101,7 +5092,6 @@ export namespace Prisma {
     serviceId?: boolean
     barbershopId?: boolean
     date?: boolean
-    status?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
     barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
@@ -5113,10 +5103,9 @@ export namespace Prisma {
     serviceId?: boolean
     barbershopId?: boolean
     date?: boolean
-    status?: boolean
   }
 
-  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serviceId" | "barbershopId" | "date" | "status", ExtArgs["result"]["booking"]>
+  export type BookingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "serviceId" | "barbershopId" | "date", ExtArgs["result"]["booking"]>
   export type BookingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     service?: boolean | ServiceDefaultArgs<ExtArgs>
@@ -5146,7 +5135,6 @@ export namespace Prisma {
       serviceId: string
       barbershopId: string
       date: Date
-      status: string
     }, ExtArgs["result"]["booking"]>
     composites: {}
   }
@@ -5578,7 +5566,6 @@ export namespace Prisma {
     readonly serviceId: FieldRef<"Booking", 'String'>
     readonly barbershopId: FieldRef<"Booking", 'String'>
     readonly date: FieldRef<"Booking", 'DateTime'>
-    readonly status: FieldRef<"Booking", 'String'>
   }
     
 
@@ -9244,8 +9231,7 @@ export namespace Prisma {
     userId: 'userId',
     serviceId: 'serviceId',
     barbershopId: 'barbershopId',
-    date: 'date',
-    status: 'status'
+    date: 'date'
   };
 
   export type BookingScalarFieldEnum = (typeof BookingScalarFieldEnum)[keyof typeof BookingScalarFieldEnum]
@@ -9588,7 +9574,6 @@ export namespace Prisma {
     serviceId?: StringFilter<"Booking"> | string
     barbershopId?: StringFilter<"Booking"> | string
     date?: DateTimeFilter<"Booking"> | Date | string
-    status?: StringFilter<"Booking"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     barbershop?: XOR<BarbershopScalarRelationFilter, BarbershopWhereInput>
@@ -9600,7 +9585,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     barbershopId?: SortOrder
     date?: SortOrder
-    status?: SortOrder
     user?: UserOrderByWithRelationInput
     service?: ServiceOrderByWithRelationInput
     barbershop?: BarbershopOrderByWithRelationInput
@@ -9615,7 +9599,6 @@ export namespace Prisma {
     serviceId?: StringFilter<"Booking"> | string
     barbershopId?: StringFilter<"Booking"> | string
     date?: DateTimeFilter<"Booking"> | Date | string
-    status?: StringFilter<"Booking"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
     service?: XOR<ServiceScalarRelationFilter, ServiceWhereInput>
     barbershop?: XOR<BarbershopScalarRelationFilter, BarbershopWhereInput>
@@ -9627,7 +9610,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     barbershopId?: SortOrder
     date?: SortOrder
-    status?: SortOrder
     _count?: BookingCountOrderByAggregateInput
     _max?: BookingMaxOrderByAggregateInput
     _min?: BookingMinOrderByAggregateInput
@@ -9642,7 +9624,6 @@ export namespace Prisma {
     serviceId?: StringWithAggregatesFilter<"Booking"> | string
     barbershopId?: StringWithAggregatesFilter<"Booking"> | string
     date?: DateTimeWithAggregatesFilter<"Booking"> | Date | string
-    status?: StringWithAggregatesFilter<"Booking"> | string
   }
 
   export type AccountWhereInput = {
@@ -10039,7 +10020,6 @@ export namespace Prisma {
   export type BookingCreateInput = {
     id?: string
     date: Date | string
-    status: string
     user: UserCreateNestedOneWithoutBookingsInput
     service: ServiceCreateNestedOneWithoutBookingInput
     barbershop: BarbershopCreateNestedOneWithoutBookingsInput
@@ -10051,13 +10031,11 @@ export namespace Prisma {
     serviceId: string
     barbershopId: string
     date: Date | string
-    status: string
   }
 
   export type BookingUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     service?: ServiceUpdateOneRequiredWithoutBookingNestedInput
     barbershop?: BarbershopUpdateOneRequiredWithoutBookingsNestedInput
@@ -10069,7 +10047,6 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingCreateManyInput = {
@@ -10078,13 +10055,11 @@ export namespace Prisma {
     serviceId: string
     barbershopId: string
     date: Date | string
-    status: string
   }
 
   export type BookingUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingUncheckedUpdateManyInput = {
@@ -10093,7 +10068,6 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type AccountCreateInput = {
@@ -10585,7 +10559,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     barbershopId?: SortOrder
     date?: SortOrder
-    status?: SortOrder
   }
 
   export type BookingMaxOrderByAggregateInput = {
@@ -10594,7 +10567,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     barbershopId?: SortOrder
     date?: SortOrder
-    status?: SortOrder
   }
 
   export type BookingMinOrderByAggregateInput = {
@@ -10603,7 +10575,6 @@ export namespace Prisma {
     serviceId?: SortOrder
     barbershopId?: SortOrder
     date?: SortOrder
-    status?: SortOrder
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -11354,7 +11325,6 @@ export namespace Prisma {
   export type BookingCreateWithoutUserInput = {
     id?: string
     date: Date | string
-    status: string
     service: ServiceCreateNestedOneWithoutBookingInput
     barbershop: BarbershopCreateNestedOneWithoutBookingsInput
   }
@@ -11364,7 +11334,6 @@ export namespace Prisma {
     serviceId: string
     barbershopId: string
     date: Date | string
-    status: string
   }
 
   export type BookingCreateOrConnectWithoutUserInput = {
@@ -11462,7 +11431,6 @@ export namespace Prisma {
     serviceId?: StringFilter<"Booking"> | string
     barbershopId?: StringFilter<"Booking"> | string
     date?: DateTimeFilter<"Booking"> | Date | string
-    status?: StringFilter<"Booking"> | string
   }
 
   export type ServiceCreateWithoutBarbershopInput = {
@@ -11496,7 +11464,6 @@ export namespace Prisma {
   export type BookingCreateWithoutBarbershopInput = {
     id?: string
     date: Date | string
-    status: string
     user: UserCreateNestedOneWithoutBookingsInput
     service: ServiceCreateNestedOneWithoutBookingInput
   }
@@ -11506,7 +11473,6 @@ export namespace Prisma {
     userId: string
     serviceId: string
     date: Date | string
-    status: string
   }
 
   export type BookingCreateOrConnectWithoutBarbershopInput = {
@@ -11587,7 +11553,6 @@ export namespace Prisma {
   export type BookingCreateWithoutServiceInput = {
     id?: string
     date: Date | string
-    status: string
     user: UserCreateNestedOneWithoutBookingsInput
     barbershop: BarbershopCreateNestedOneWithoutBookingsInput
   }
@@ -11597,7 +11562,6 @@ export namespace Prisma {
     userId: string
     barbershopId: string
     date: Date | string
-    status: string
   }
 
   export type BookingCreateOrConnectWithoutServiceInput = {
@@ -11970,7 +11934,6 @@ export namespace Prisma {
     serviceId: string
     barbershopId: string
     date: Date | string
-    status: string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -12036,7 +11999,6 @@ export namespace Prisma {
   export type BookingUpdateWithoutUserInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
     service?: ServiceUpdateOneRequiredWithoutBookingNestedInput
     barbershop?: BarbershopUpdateOneRequiredWithoutBookingsNestedInput
   }
@@ -12046,7 +12008,6 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingUncheckedUpdateManyWithoutUserInput = {
@@ -12054,7 +12015,6 @@ export namespace Prisma {
     serviceId?: StringFieldUpdateOperationsInput | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type ServiceCreateManyBarbershopInput = {
@@ -12070,7 +12030,6 @@ export namespace Prisma {
     userId: string
     serviceId: string
     date: Date | string
-    status: string
   }
 
   export type ServiceUpdateWithoutBarbershopInput = {
@@ -12102,7 +12061,6 @@ export namespace Prisma {
   export type BookingUpdateWithoutBarbershopInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     service?: ServiceUpdateOneRequiredWithoutBookingNestedInput
   }
@@ -12112,7 +12070,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingUncheckedUpdateManyWithoutBarbershopInput = {
@@ -12120,7 +12077,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingCreateManyServiceInput = {
@@ -12128,13 +12084,11 @@ export namespace Prisma {
     userId: string
     barbershopId: string
     date: Date | string
-    status: string
   }
 
   export type BookingUpdateWithoutServiceInput = {
     id?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutBookingsNestedInput
     barbershop?: BarbershopUpdateOneRequiredWithoutBookingsNestedInput
   }
@@ -12144,7 +12098,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
   export type BookingUncheckedUpdateManyWithoutServiceInput = {
@@ -12152,7 +12105,6 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     barbershopId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
-    status?: StringFieldUpdateOperationsInput | string
   }
 
 
