@@ -28,12 +28,12 @@ export default async function Home() {
         <Search />
       </div>
 
-      <div className="px-5 mt-6">
+      {/* <div className="px-5 mt-6">
         <h2 className="text-sm mb-3 uppercase text-grey-400 font-bold">
           Agendamentos
         </h2>
         <BookingItem />
-      </div>
+      </div> */}
       <div className="mt-6">
           <h2 className="px-5 text-sm mb-3 uppercase text-gray-400 font-bold">Recomendações</h2>
           <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">

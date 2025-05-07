@@ -29,7 +29,7 @@ interface ServiceItemProps {
   service: Omit<Service, "price"> & { price: number };
   isAuthenticated?: boolean;
 }
-
+//TODO: adicionar verificação de horário conforme o horário de funcionamento da barbearia e o harario atual do dia
 const ServiceItem = ({
   service,
   isAuthenticated,
