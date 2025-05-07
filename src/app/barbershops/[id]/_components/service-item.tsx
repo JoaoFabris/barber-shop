@@ -51,13 +51,13 @@ const ServiceItem = ({
     }
 
     const refreshHour = async () => {
-      const _dayBooking = await getDayBookings(date);
+      const _dayBooking = await getDayBookings(barbershop.id ,date);
 
       setDayBookings(_dayBooking);
     };
 
     refreshHour();
-  }, [date]);
+  }, [barbershop.id ,date]);
 
   const handleHourClick = (time: string) => {
     setHour(time);
