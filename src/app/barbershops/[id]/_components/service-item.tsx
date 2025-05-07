@@ -11,10 +11,10 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Barbershop, Service } from "@/generated/prisma";
+import { Barbershop, Booking, Service } from "@/generated/prisma";
 import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { generateDayTimeList } from "../_helpers/hours";
 import { format, setHours, setMinutes } from "date-fns";
@@ -22,6 +22,7 @@ import { saveBooking } from "../_actions/save-booking";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import { getDayBookings } from "../_actions/get-day-bookings";
 
 interface ServiceItemProps {
   barbershop: Barbershop;
@@ -37,20 +38,34 @@ const ServiceItem = ({
   const [date, setDate] = useState<Date | undefined>(new Date());
   const [hour, setHour] = useState<string | undefined>(undefined);
   const [submitLoading, setSubmitLoading] = useState(false);
-  const[sheetOpen, setSheetOpen] = useState(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [dayBookings, setDayBookings] = useState<Booking[]>([]);
 
   const router = useRouter();
   const { data } = useSession();
 
-  const handleHoutrClick = (time: string) => {
+
+  useEffect(() => {
+    if (!date) {
+      return;
+    }
+
+    const refreshHour = async () => {
+      const _dayBooking = await getDayBookings(date);
+
+      setDayBookings(_dayBooking);
+    };
+
+    refreshHour();
+  }, [date]);
+
+  const handleHourClick = (time: string) => {
     setHour(time);
   };
 
   const handleDateClick = (date: Date | undefined) => {
     setDate(date);
     setHour(undefined);
-    console.log(date);
-    console.log(hour);
   };
 
   const handleBookingSubmit = async () => {
@@ -88,17 +103,41 @@ const ServiceItem = ({
           label: "Visualizar",
           onClick: () => router.push("/bookings"),
         },
-      })
+      });
     } catch (error) {
       console.log("Error booking service", error);
     } finally {
       setSubmitLoading(false);
     }
   };
-
+  // com o isso useMemo não vai gerar a lista de horários toda vez que o componente renderizar poupando processamento
   const timeList = useMemo(() => {
-    return date ? generateDayTimeList(date) : []; // com o isso useMemo não vai gerar a lista de horários toda vez que o componente renderizar poupando processamento
-  }, [date]);
+    if (!date) {
+      return [];
+    }
+
+    return generateDayTimeList(date).filter((time) => {
+
+      // aqui eu pego o horário e minuto do time que é uma string
+      const timeHour = Number(time.split(":")[0]);
+      const timeMinutes = Number(time.split(":")[1]);
+
+      const booking = dayBookings.find((booking) => {
+        const bookingHour = booking.date.getHours();
+        const bookingMinutes = booking.date.getMinutes();
+
+        return bookingHour === timeHour && bookingMinutes === timeMinutes;
+      });
+
+      if (!booking) {
+        return true;
+      }
+
+      return false;
+    });
+  }, [date, dayBookings]);
+
+
   return (
     <Card>
       <CardContent className="p-3 w-full">
@@ -124,9 +163,7 @@ const ServiceItem = ({
               </p>
               <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
                 <SheetTrigger asChild>
-                  <Button variant="secondary">
-                    Reservar
-                  </Button>
+                  <Button variant="secondary">Reservar</Button>
                 </SheetTrigger>
 
                 <SheetContent className="p-0">
@@ -171,7 +208,7 @@ const ServiceItem = ({
                           key={time}
                           className="rounded-full"
                           variant={hour === time ? "default" : "outline"}
-                          onClick={() => handleHoutrClick(time)}
+                          onClick={() => handleHourClick(time)}
                         >
                           {time}
                         </Button>
@@ -228,7 +265,9 @@ const ServiceItem = ({
                           <Loader2 className="animate-spin" size={16} />
                         ) : (
                           <span>
-                            {data?.user ? "Reservar" : "Fazer login para reservar"}
+                            {data?.user
+                              ? "Reservar"
+                              : "Fazer login para reservar"}
                           </span>
                         )}
                       </Button>
