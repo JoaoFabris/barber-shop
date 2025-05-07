@@ -4,7 +4,6 @@ import { authOptions } from "../api/auth/[...nextauth]/route";
 import { redirect } from "next/navigation";
 import { db } from "../_lib/prisma";
 import BookingItem from "../_components/booking-item";
-import { isFuture, isPast } from "date-fns";
 
 const BookingPage = async () => {
   // recuperar a sessão do usuário e ver se ele está autenticado
@@ -18,19 +17,35 @@ const BookingPage = async () => {
   interface UserSession {
     id: string;
   }
+  // melhor fazer o filtro pelo bd, pois gasta menos memoria do servidor, pela js gastaria mais e com a promisse fica mais rapido para acessar e renderizar 
+  const [confirmedBookings, finishedBookings] = await Promise.all([
+    db.booking.findMany({
+      where: {
+        userId: (session.user as UserSession).id,
+        date: {
+          gte: new Date(),
+        },
+      },
+      include: {
+        service: true,
+        barbershop: true,
+      },
+    }),
+    db.booking.findMany({
+      where: {
+        userId: (session.user as UserSession).id,
+        date: {
+          lt: new Date(),
+        },
+      },
+      include: {
+        service: true,
+        barbershop: true,
+      },
+    }),
+  ]);
 
-  const bookings = await db.booking.findMany({
-    where: {
-      userId: (session.user as UserSession).id,
-    },
-    include: {
-      service: true,
-      barbershop: true,
-    },
-  });
 
-  const confirmedBookings = bookings.filter(booking => isFuture(booking.date)) // usando date-fns
-  const finishedBookings = bookings.filter(booking => isPast(booking.date))
 
   return (
     <>
@@ -62,4 +77,4 @@ const BookingPage = async () => {
 
 export default BookingPage;
 // esta e uma pagina user service
-// foi criado o bookinglist para ser client component
+
