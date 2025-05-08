@@ -26,6 +26,7 @@ export const authOptions: AuthOptions = {
       return session;
     },
   },
+  secret: process.env.NEXTAUTH_SECRET, //esse secret precisa estar populado para fazer deploy, em produção esse secret é necessáio e deve ser colocado no .env
 };
 
 const handler = NextAuth(authOptions);
