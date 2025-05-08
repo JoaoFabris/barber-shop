@@ -4,11 +4,11 @@ import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-interface BarbershopDetailsPageProps {
+interface PageProps  {
   params: { id?: string };
 }
 
-const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
+const Page = async ({ params }: PageProps ) => {
     const session = await getServerSession(authOptions); // n pode usar o useSession aqui, pois é um componente de servidor
 
     if (!params.id) return null;
@@ -48,4 +48,4 @@ const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => 
     );
 };
 
-export default BarbershopDetailsPage;
+export default Page;
