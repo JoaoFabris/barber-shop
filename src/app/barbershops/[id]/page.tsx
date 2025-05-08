@@ -8,7 +8,7 @@ interface PageProps  {
   params: { id?: string };
 }
 
-const Page = async ({ params }: PageProps ) => {
+export default async function Page({ params }: PageProps) {
     const session = await getServerSession(authOptions); // n pode usar o useSession aqui, pois é um componente de servidor
 
     if (!params.id) return null;
@@ -47,5 +47,3 @@ const Page = async ({ params }: PageProps ) => {
         </div>
     );
 };
-
-export default Page;
