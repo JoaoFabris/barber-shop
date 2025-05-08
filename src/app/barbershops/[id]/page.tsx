@@ -5,19 +5,17 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface BarbershopDetailsPageProps {
-  params: Promise<{ id?: string }> | { id?: string };
+  params: { id?: string };
 }
 
 const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
-
     const session = await getServerSession(authOptions); // n pode usar o useSession aqui, pois é um componente de servidor
-    const resolvedParams = await params;
-    
-    if (!resolvedParams.id) return null;
+
+    if (!params.id) return null;
     
     const barbershop = await db.barbershop.findUnique({
         where: {
-            id: resolvedParams.id,
+            id: params.id,
         },
         include: {
             services: true,
