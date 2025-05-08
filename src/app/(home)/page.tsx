@@ -15,19 +15,19 @@ export default async function Home() {
   const [barbershops, confirmedBookings] = await Promise.all([
     db.barbershop.findMany({}),
     session
-    ? await db.booking.findMany({
-        where: {
-          userId: (session.user as { id: string }).id,
-          date: {
-            gte: new Date(),
+      ? await db.booking.findMany({
+          where: {
+            userId: (session.user as { id: string }).id,
+            date: {
+              gte: new Date(),
+            },
           },
-        },
-        include: {
-          service: true,
-          barbershop: true,
-        },
-      })
-    : Promise.resolve([])
+          include: {
+            service: true,
+            barbershop: true,
+          },
+        })
+      : Promise.resolve([]),
   ]);
 
   return (
@@ -47,13 +47,22 @@ export default async function Home() {
       </div>
 
       <div className="px-5 mt-6">
-        <h2 className="text-sm mb-3 uppercase text-grey-400 font-bold">
-          Agendamentos
-        </h2>
-        <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-        {confirmedBookings.map((booking) =>(<BookingItem key={booking.id} booking={booking}/>))}
-        </div>
-        
+        {confirmedBookings.length > 0 ? (
+          <>
+            <h2 className="text-sm mb-3 uppercase text-grey-400 font-bold">
+              Agendamentos
+            </h2>
+            <div className="flex gap-3 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+              {confirmedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </div>
+          </>
+        ) : (
+          <h2 className="text-sm mb-3 uppercase text-grey-400 font-bold">
+            Nenhum agendamento
+          </h2>
+        )}
       </div>
       <div className="mt-6">
         <h2 className="px-5 text-sm mb-3 uppercase text-gray-400 font-bold">

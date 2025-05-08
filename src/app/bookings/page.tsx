@@ -61,10 +61,11 @@ const BookingPage = async () => {
             <BookingItem key={booking.id} booking={booking} />
           ))}
         </div>
-
-        <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">
-          Finalizados
-        </h2>
+        {finishedBookings.length !== 0 && (
+          <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">
+            Finalizados
+          </h2>
+        )}
         <div className="flex flex-col gap-3">
           {finishedBookings.map((booking) => (
             <BookingItem key={booking.id} booking={booking} />

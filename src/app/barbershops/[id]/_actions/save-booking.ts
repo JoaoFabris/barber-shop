@@ -1,6 +1,7 @@
 'use server'
 
 import { db } from "@/app/_lib/prisma";
+import { revalidatePath } from "next/cache";
 
 interface SaveBookingParams {
     barbershopId: string;
@@ -18,4 +19,6 @@ export const saveBooking = async (params: SaveBookingParams) => {
             date: params.date,
         },
     });
+    revalidatePath("/") // se tiver na pag home ele vai revalidar dentro da pag home
+    revalidatePath("/bookings") // se tiver na pag booking ele vai revalidar dentro da pag booking
 }
