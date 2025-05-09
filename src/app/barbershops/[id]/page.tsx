@@ -5,43 +5,47 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
 interface BarbershopDetailsPageProps {
-    params: {
-      id?: string;
-    };
-  }
-  
+  params: {
+    id?: string;
+  };
+}
 
 const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
-    const resolvedParams = await params;
-    const session = await getServerSession(authOptions);
+  // params já é um objeto, não precisa de await!
+  const session = await getServerSession(authOptions);
 
-    if (!resolvedParams.id) return null;
-    
-    const barbershop = await db.barbershop.findUnique({
-        where: { id: resolvedParams.id },
-        include: { services: true }
-    });
+  if (!params.id) return null;
 
-    if (!barbershop) return null;
+  const barbershop = await db.barbershop.findUnique({
+    where: { id: params.id },
+    include: { services: true },
+  });
 
-    const serializedServices = barbershop.services.map(service => ({
-        ...service,
-        price: parseFloat(service.price.toString())
-    }));
+  if (!barbershop) return null;
 
-    const serializedBarbershop = {
-        ...barbershop,
-        services: serializedServices
-    };
+  const serializedServices = barbershop.services.map((service) => ({
+    ...service,
+    price: parseFloat(service.price.toString()),
+  }));
 
-    return (
-        <div className="px-5 flex flex-col gap-4 py-6">
-            <BarberShopInfo barbershop={serializedBarbershop} />
-            {serializedServices.map(service => (
-                <ServiceItem key={service.id} barbershop={serializedBarbershop} service={service} isAuthenticated={!!session?.user}/>
-            ))}
-        </div>
-    );
-}
+  const serializedBarbershop = {
+    ...barbershop,
+    services: serializedServices,
+  };
+
+  return (
+    <div className="px-5 flex flex-col gap-4 py-6">
+      <BarberShopInfo barbershop={serializedBarbershop} />
+      {serializedServices.map((service) => (
+        <ServiceItem
+          key={service.id}
+          barbershop={serializedBarbershop}
+          service={service}
+          isAuthenticated={!!session?.user}
+        />
+      ))}
+    </div>
+  );
+};
 
 export default BarbershopDetailsPage;
