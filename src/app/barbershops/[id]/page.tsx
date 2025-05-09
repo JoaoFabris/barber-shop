@@ -4,12 +4,14 @@ import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default async function BarbershopDetailsPage({ params }: { params: { id: string } }) {
+export default async function BarbershopDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+    const resolvedParams = await params;
     const session = await getServerSession(authOptions);
-    if (!params.id) return null;
+
+    if (!resolvedParams.id) return null;
     
     const barbershop = await db.barbershop.findUnique({
-        where: { id: params.id },
+        where: { id: resolvedParams.id },
         include: { services: true }
     });
 
