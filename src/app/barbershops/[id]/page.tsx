@@ -4,38 +4,22 @@ import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-interface BarbershopDetailsPageProps {
-    params: {
-      id: string;
-    }
-  };
-  export default async function BarbershopDetailsPage  ({ params }: BarbershopDetailsPageProps) {
-
-    const session = await getServerSession(authOptions); // n pode usar o useSession aqui, pois é um componente de servidor
-    
-    
+export default async function BarbershopDetailsPage({ params }: { params: { id: string } }) {
+    const session = await getServerSession(authOptions);
     if (!params.id) return null;
-
-    const barbershop = await db.barbershop.findUnique({
-      where: {
-        id: params.id,
-      },
-      include: {
-        services: true,
-      },
-    });
     
-    if (!barbershop) {
-        return null;
-    }
+    const barbershop = await db.barbershop.findUnique({
+        where: { id: params.id },
+        include: { services: true }
+    });
 
-    // Serializa os serviços para converter os objetos Decimal para number
+    if (!barbershop) return null;
+
     const serializedServices = barbershop.services.map(service => ({
         ...service,
         price: parseFloat(service.price.toString())
     }));
 
-    // Cria uma versão serializada do barbershop
     const serializedBarbershop = {
         ...barbershop,
         services: serializedServices
@@ -49,4 +33,4 @@ interface BarbershopDetailsPageProps {
             ))}
         </div>
     );
-};
+}
