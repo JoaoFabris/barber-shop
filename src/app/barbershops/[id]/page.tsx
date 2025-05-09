@@ -12,17 +12,17 @@ interface BarbershopDetailsPageProps {
   export default async function BarbershopDetailsPage  ({ params }: BarbershopDetailsPageProps) {
 
     const session = await getServerSession(authOptions); // n pode usar o useSession aqui, pois é um componente de servidor
-    const resolvedParams = await params;
     
-    if (!resolvedParams.id) return null;
     
+    if (!params.id) return null;
+
     const barbershop = await db.barbershop.findUnique({
-        where: {
-            id: resolvedParams.id,
-        },
-        include: {
-            services: true,
-        }
+      where: {
+        id: params.id,
+      },
+      include: {
+        services: true,
+      },
     });
     
     if (!barbershop) {
