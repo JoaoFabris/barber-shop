@@ -5,7 +5,7 @@ import { redirect } from "next/navigation";
 import { db } from "../_lib/prisma";
 import BookingItem from "../_components/booking-item";
 
-const BookingPage = async () => {
+export default async function BookingPage () {
   // recuperar a sessão do usuário e ver se ele está autenticado
   const session = await getServerSession(authOptions);
   // esta pagina só pode ser acessada se o usuário estiver autenticado
@@ -76,5 +76,4 @@ const BookingPage = async () => {
   );
 };
 
-export default BookingPage;
 // esta e uma pagina user service

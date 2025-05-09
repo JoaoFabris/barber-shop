@@ -4,13 +4,11 @@ import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-
-const BarbershopDetailsPage = async ({
-    params,
-  }: {
-    params: { id: string }
-  }) => {
-  // params já é um objeto, não precisa de await!
+export default async function BarbershopDetailsPage({
+  params,
+}: {
+  params: { id: string }
+}) {
   const session = await getServerSession(authOptions);
 
   if (!params.id) return null;
@@ -45,6 +43,4 @@ const BarbershopDetailsPage = async ({
       ))}
     </div>
   );
-};
-
-export default BarbershopDetailsPage;
+}
