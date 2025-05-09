@@ -23,7 +23,6 @@ const SideMenu = () => {
   };
 
   const handleLogout = () => {
-    console.log("Logout");
 
     signOut();
   };

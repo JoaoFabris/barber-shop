@@ -4,7 +4,14 @@ import ServiceItem from "./_components/service-item";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 
-export default async function BarbershopDetailsPage({ params }: { params: Promise<{ id: string }> }) {
+interface BarbershopDetailsPageProps {
+    params: {
+      id?: string;
+    };
+  }
+  
+
+const BarbershopDetailsPage = async ({ params }: BarbershopDetailsPageProps) => {
     const resolvedParams = await params;
     const session = await getServerSession(authOptions);
 
@@ -36,3 +43,5 @@ export default async function BarbershopDetailsPage({ params }: { params: Promis
         </div>
     );
 }
+
+export default BarbershopDetailsPage;
