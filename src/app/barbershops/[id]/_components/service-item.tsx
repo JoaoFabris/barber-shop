@@ -89,7 +89,6 @@ const ServiceItem = ({
         date: newDate,
         userId: (data.user as { id: string }).id,
       });
-      console.log("Reserva feita com sucesso", newDate);
 
       setHour(undefined);
       setDate(undefined);
@@ -104,8 +103,8 @@ const ServiceItem = ({
           onClick: () => router.push("/bookings"),
         },
       });
-    } catch (error) {
-      console.log("Error booking service", error);
+    } catch (_error) {
+      toast.error("Ocorreu um erro ao realizar a reserva. Tente novamente mais tarde.");
     } finally {
       setSubmitLoading(false);
     }
