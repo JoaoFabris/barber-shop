@@ -12,7 +12,7 @@ import { authOptions } from "../_lib/auth";
 export default async function Home() {
   const session = await getServerSession(authOptions);
   // o promise.all executa paralelamente o barbershops e confirmedBookings
-  const [barbershops, confirmedBookings] = await Promise.all([
+  const [barbershops, confirmedBookingsRaw] = await Promise.all([
     db.barbershop.findMany({}),
     session
       ? await db.booking.findMany({
@@ -29,6 +29,15 @@ export default async function Home() {
         })
       : Promise.resolve([]),
   ]);
+
+  const confirmedBookings = confirmedBookingsRaw.map((booking) => ({
+    ...booking,
+    service: {
+      ...booking.service,
+      price: booking.service.price?.toNumber(), // ou .toString() para o client component poder ter acesso, pois de servidor para component temos q mudar o tipo
+    },
+  }));
+  
 
   return (
     <div>
