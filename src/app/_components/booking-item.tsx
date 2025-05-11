@@ -33,13 +33,26 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+
 interface BookingItemProps {
-  booking: Prisma.BookingGetPayload<{
-    include: {
-      service: true;
-      barbershop: true;
+  booking: {
+    id: string;
+    date: Date;
+    service: {
+      id: string;
+      barbershopId: string;
+      name: string;
+      description: string;
+      imageUrl: string;
+      price: number; // <- troque Decimal por number!
     };
-  }>;
+    barbershop: {
+      id: string;
+      name: string;
+      imageUrl: string;
+      address: string;
+    };
+  };
 }
 
 const BookingItem = ({ booking }: BookingItemProps) => {

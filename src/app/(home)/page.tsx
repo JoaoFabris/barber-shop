@@ -34,17 +34,18 @@ export default async function Home() {
     ...booking,
     service: {
       ...booking.service,
-      price: booking.service.price?.toNumber(), // ou .toString() para o client component poder ter acesso, pois de servidor para component temos q mudar o tipo
+      price: booking.service.price.toNumber(),
     },
   }));
-  
 
   return (
     <div>
       <Header />
 
       <div className="px-5 pt-5">
-        <h2 className="text-xl font-bold">{session?.user ?` Olá ${session.user.name} ` : 'Faça o login'}</h2>
+        <h2 className="text-xl font-bold">
+          {session?.user ? ` Olá ${session.user.name} ` : "Faça o login"}
+        </h2>
         <p className="capitalize text-sm">
           {format(new Date(), "EEEE',' dd 'de' MMMM", {
             locale: ptBR,
@@ -77,7 +78,7 @@ export default async function Home() {
         <h2 className="px-5 text-sm mb-3 uppercase text-gray-400 font-bold">
           Recomendações
         </h2>
-        <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+        <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}
@@ -88,7 +89,7 @@ export default async function Home() {
         <h2 className="px-5 text-sm mb-3 uppercase text-gray-400 font-bold">
           Populares
         </h2>
-        <div className="flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
+        <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
           {barbershops.map((barbershop: Barbershop) => (
             <BarbershopItem key={barbershop.id} barbershop={barbershop} />
           ))}

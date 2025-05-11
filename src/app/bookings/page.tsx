@@ -45,6 +45,22 @@ export default async function BookingPage () {
     }),
   ]);
 
+  const confirmedBookingsMapped = confirmedBookings.map((booking) => ({
+    ...booking,
+    service: {
+      ...booking.service,
+      price: booking.service.price.toNumber(),
+    }
+  }));
+  
+  const finishedBookingsMapped = finishedBookings.map((booking) => ({
+    ...booking,
+    service: {
+      ...booking.service,
+      price: booking.service.price.toNumber(),
+    }
+  }));
+
   return (
     <>
       <Header />
@@ -57,17 +73,17 @@ export default async function BookingPage () {
           </h2>
         )}
         <div className="flex flex-col gap-3">
-          {confirmedBookings.map((booking) => (
+          {confirmedBookingsMapped.map((booking) => (
             <BookingItem key={booking.id} booking={booking} />
           ))}
         </div>
-        {finishedBookings.length !== 0 && (
+        {finishedBookingsMapped.length !== 0 && (
           <h2 className="text-gray-400 uppercase font-bold text-sm mt-6 mb-3">
             Finalizados
           </h2>
         )}
         <div className="flex flex-col gap-3">
-          {finishedBookings.map((booking) => (
+          {finishedBookingsMapped.map((booking) => (
             <BookingItem key={booking.id} booking={booking} />
           ))}
         </div>
