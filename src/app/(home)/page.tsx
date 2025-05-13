@@ -12,6 +12,7 @@ import { authOptions } from "../_lib/auth";
 export default async function Home() {
   const session = await getServerSession(authOptions);
   // o promise.all executa paralelamente o barbershops e confirmedBookings
+  //TODO: create recommend sort 
   const [barbershops, confirmedBookingsRaw] = await Promise.all([
     db.barbershop.findMany({}),
     session
@@ -37,6 +38,8 @@ export default async function Home() {
       price: booking.service.price.toNumber(),
     },
   }));
+
+  const shuffledBarbershops = [...barbershops].sort(() => Math.random() - 0.5);
 
   return (
     <div>
@@ -79,7 +82,7 @@ export default async function Home() {
           Recomendações
         </h2>
         <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop: Barbershop) => (
+          {shuffledBarbershops.map((barbershop: Barbershop) => (
             <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>
