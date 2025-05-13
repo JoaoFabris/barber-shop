@@ -12,6 +12,6 @@ export function generateDayTimeList(date: Date): string[] {
     timeList.push(format(currentTime, "HH:mm"));
     currentTime = addMinutes(currentTime, interval);
   }
-
+// TODO: atualiazar horarios conforme o horario atual
   return timeList;
 }
