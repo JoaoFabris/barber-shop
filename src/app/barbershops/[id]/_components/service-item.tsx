@@ -44,20 +44,19 @@ const ServiceItem = ({
   const router = useRouter();
   const { data } = useSession();
 
-
   useEffect(() => {
     if (!date) {
       return;
     }
 
     const refreshHour = async () => {
-      const _dayBooking = await getDayBookings(barbershop.id ,date);
+      const _dayBooking = await getDayBookings(barbershop.id, date);
 
       setDayBookings(_dayBooking);
     };
 
     refreshHour();
-  }, [barbershop.id ,date]);
+  }, [barbershop.id, date]);
 
   const handleHourClick = (time: string) => {
     setHour(time);
@@ -104,7 +103,9 @@ const ServiceItem = ({
         },
       });
     } catch (_error) {
-      toast.error("Ocorreu um erro ao realizar a reserva. Tente novamente mais tarde.");
+      toast.error(
+        "Ocorreu um erro ao realizar a reserva. Tente novamente mais tarde."
+      );
     } finally {
       setSubmitLoading(false);
     }
@@ -116,7 +117,6 @@ const ServiceItem = ({
     }
 
     return generateDayTimeList(date).filter((time) => {
-
       // aqui eu pego o horário e minuto do time que é uma string
       const timeHour = Number(time.split(":")[0]);
       const timeMinutes = Number(time.split(":")[1]);
@@ -135,7 +135,6 @@ const ServiceItem = ({
       return false;
     });
   }, [date, dayBookings]);
-
 
   return (
     <Card>
@@ -165,7 +164,7 @@ const ServiceItem = ({
                   <Button variant="secondary">Reservar</Button>
                 </SheetTrigger>
 
-                <SheetContent className="p-0">
+                <SheetContent className="p-0 ">
                   <SheetHeader className="text-left px-5 py-6 border-b border-secondary">
                     <SheetTitle>Fazer reserva</SheetTitle>
                   </SheetHeader>
@@ -174,29 +173,20 @@ const ServiceItem = ({
                     mode="single"
                     selected={date}
                     onSelect={handleDateClick}
-                    fromDate={new Date()}
+                    disabled={{ before: new Date() }}
                     locale={ptBR}
-                    className="rounded-md border"
-                    styles={{
-                      head_cell: {
-                        width: "100%",
-                        textTransform: "capitalize",
-                      },
-                      cell: {
-                        width: "100%",
-                      },
-                      button: {
-                        width: "100%",
-                      },
-                      nav_button_previous: {
-                        width: "fit-content",
-                      },
-                      nav_button_next: {
-                        width: "fit-content",
-                      },
-                      caption: {
-                        textTransform: "capitalize",
-                      },
+                    classNames={{
+                      disabled: "opacity-40 pointer-events-none",
+                      months: "text-center",
+                      weekdays: "capitalize",
+                      nav: "flex items-center justify-between", // só para alinhar os botões
+                      chevron: "fill-primary hover:fill-white",
+                      day: "h-8 w-8 text-xs sm:h-10 sm:w-10 sm:text-sm rounded-full border border-transparent hover:bg-primary transition-colors cursor-pointer",
+                      button: "flex items-center justify-center h-8 w-8 sm:h-10 sm:w-10 rounded-full border border-transparent text-xs sm:text-sm hover:bg-primary transition-colors cursor-pointer",
+                      selected: "!bg-primary !text-primary-foreground !font-bold !rounded-full",
+                      caption: "flex justify-center pt-1 items-center w-full relative",
+                      caption_label:
+                        "text-lg font-bold text-primary capitalize", // Tamanho e cor
                     }}
                   />
                   {/* {mostrar lista de horários disponíveis aqui se uma data for selecionada}  */}
