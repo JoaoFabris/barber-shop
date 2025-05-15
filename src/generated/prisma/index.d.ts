@@ -19,6 +19,11 @@ export type PrismaPromise<T> = $Public.PrismaPromise<T>
  */
 export type User = $Result.DefaultSelection<Prisma.$UserPayload>
 /**
+ * Model Rating
+ * 
+ */
+export type Rating = $Result.DefaultSelection<Prisma.$RatingPayload>
+/**
  * Model Barbershop
  * 
  */
@@ -183,6 +188,16 @@ export class PrismaClient<
     * ```
     */
   get user(): Prisma.UserDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.rating`: Exposes CRUD operations for the **Rating** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Ratings
+    * const ratings = await prisma.rating.findMany()
+    * ```
+    */
+  get rating(): Prisma.RatingDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.barbershop`: Exposes CRUD operations for the **Barbershop** model.
@@ -684,6 +699,7 @@ export namespace Prisma {
 
   export const ModelName: {
     User: 'User',
+    Rating: 'Rating',
     Barbershop: 'Barbershop',
     Service: 'Service',
     Booking: 'Booking',
@@ -708,7 +724,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "barbershop" | "service" | "booking" | "account" | "session" | "verificationToken"
+      modelProps: "user" | "rating" | "barbershop" | "service" | "booking" | "account" | "session" | "verificationToken"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -783,6 +799,80 @@ export namespace Prisma {
           count: {
             args: Prisma.UserCountArgs<ExtArgs>
             result: $Utils.Optional<UserCountAggregateOutputType> | number
+          }
+        }
+      }
+      Rating: {
+        payload: Prisma.$RatingPayload<ExtArgs>
+        fields: Prisma.RatingFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.RatingFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.RatingFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          findFirst: {
+            args: Prisma.RatingFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.RatingFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          findMany: {
+            args: Prisma.RatingFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          create: {
+            args: Prisma.RatingCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          createMany: {
+            args: Prisma.RatingCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.RatingCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          delete: {
+            args: Prisma.RatingDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          update: {
+            args: Prisma.RatingUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          deleteMany: {
+            args: Prisma.RatingDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.RatingUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.RatingUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>[]
+          }
+          upsert: {
+            args: Prisma.RatingUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$RatingPayload>
+          }
+          aggregate: {
+            args: Prisma.RatingAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateRating>
+          }
+          groupBy: {
+            args: Prisma.RatingGroupByArgs<ExtArgs>
+            result: $Utils.Optional<RatingGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.RatingCountArgs<ExtArgs>
+            result: $Utils.Optional<RatingCountAggregateOutputType> | number
           }
         }
       }
@@ -1315,6 +1405,7 @@ export namespace Prisma {
   }
   export type GlobalOmitConfig = {
     user?: UserOmit
+    rating?: RatingOmit
     barbershop?: BarbershopOmit
     service?: ServiceOmit
     booking?: BookingOmit
@@ -1418,12 +1509,14 @@ export namespace Prisma {
     accounts: number
     sessions: number
     bookings: number
+    ratings: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     accounts?: boolean | UserCountOutputTypeCountAccountsArgs
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     bookings?: boolean | UserCountOutputTypeCountBookingsArgs
+    ratings?: boolean | UserCountOutputTypeCountRatingsArgs
   }
 
   // Custom InputTypes
@@ -1458,6 +1551,13 @@ export namespace Prisma {
     where?: BookingWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+  }
+
 
   /**
    * Count Type BarbershopCountOutputType
@@ -1466,11 +1566,13 @@ export namespace Prisma {
   export type BarbershopCountOutputType = {
     services: number
     bookings: number
+    ratings: number
   }
 
   export type BarbershopCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | BarbershopCountOutputTypeCountServicesArgs
     bookings?: boolean | BarbershopCountOutputTypeCountBookingsArgs
+    ratings?: boolean | BarbershopCountOutputTypeCountRatingsArgs
   }
 
   // Custom InputTypes
@@ -1496,6 +1598,13 @@ export namespace Prisma {
    */
   export type BarbershopCountOutputTypeCountBookingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BookingWhereInput
+  }
+
+  /**
+   * BarbershopCountOutputType without action
+   */
+  export type BarbershopCountOutputTypeCountRatingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
   }
 
 
@@ -1717,6 +1826,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
+    ratings?: boolean | User$ratingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1755,6 +1865,7 @@ export namespace Prisma {
     accounts?: boolean | User$accountsArgs<ExtArgs>
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     bookings?: boolean | User$bookingsArgs<ExtArgs>
+    ratings?: boolean | User$ratingsArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1766,6 +1877,7 @@ export namespace Prisma {
       accounts: Prisma.$AccountPayload<ExtArgs>[]
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
+      ratings: Prisma.$RatingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2172,6 +2284,7 @@ export namespace Prisma {
     accounts<T extends User$accountsArgs<ExtArgs> = {}>(args?: Subset<T, User$accountsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$AccountPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends User$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, User$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ratings<T extends User$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, User$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2668,6 +2781,30 @@ export namespace Prisma {
   }
 
   /**
+   * User.ratings
+   */
+  export type User$ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
    * User without action
    */
   export type UserDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -2687,13 +2824,1123 @@ export namespace Prisma {
 
 
   /**
+   * Model Rating
+   */
+
+  export type AggregateRating = {
+    _count: RatingCountAggregateOutputType | null
+    _avg: RatingAvgAggregateOutputType | null
+    _sum: RatingSumAggregateOutputType | null
+    _min: RatingMinAggregateOutputType | null
+    _max: RatingMaxAggregateOutputType | null
+  }
+
+  export type RatingAvgAggregateOutputType = {
+    score: number | null
+  }
+
+  export type RatingSumAggregateOutputType = {
+    score: number | null
+  }
+
+  export type RatingMinAggregateOutputType = {
+    id: string | null
+    score: number | null
+    userId: string | null
+    barbershopId: string | null
+    createdAt: Date | null
+  }
+
+  export type RatingMaxAggregateOutputType = {
+    id: string | null
+    score: number | null
+    userId: string | null
+    barbershopId: string | null
+    createdAt: Date | null
+  }
+
+  export type RatingCountAggregateOutputType = {
+    id: number
+    score: number
+    userId: number
+    barbershopId: number
+    createdAt: number
+    _all: number
+  }
+
+
+  export type RatingAvgAggregateInputType = {
+    score?: true
+  }
+
+  export type RatingSumAggregateInputType = {
+    score?: true
+  }
+
+  export type RatingMinAggregateInputType = {
+    id?: true
+    score?: true
+    userId?: true
+    barbershopId?: true
+    createdAt?: true
+  }
+
+  export type RatingMaxAggregateInputType = {
+    id?: true
+    score?: true
+    userId?: true
+    barbershopId?: true
+    createdAt?: true
+  }
+
+  export type RatingCountAggregateInputType = {
+    id?: true
+    score?: true
+    userId?: true
+    barbershopId?: true
+    createdAt?: true
+    _all?: true
+  }
+
+  export type RatingAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Rating to aggregate.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned Ratings
+    **/
+    _count?: true | RatingCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: RatingAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: RatingSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: RatingMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: RatingMaxAggregateInputType
+  }
+
+  export type GetRatingAggregateType<T extends RatingAggregateArgs> = {
+        [P in keyof T & keyof AggregateRating]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateRating[P]>
+      : GetScalarType<T[P], AggregateRating[P]>
+  }
+
+
+
+
+  export type RatingGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithAggregationInput | RatingOrderByWithAggregationInput[]
+    by: RatingScalarFieldEnum[] | RatingScalarFieldEnum
+    having?: RatingScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: RatingCountAggregateInputType | true
+    _avg?: RatingAvgAggregateInputType
+    _sum?: RatingSumAggregateInputType
+    _min?: RatingMinAggregateInputType
+    _max?: RatingMaxAggregateInputType
+  }
+
+  export type RatingGroupByOutputType = {
+    id: string
+    score: number
+    userId: string
+    barbershopId: string
+    createdAt: Date
+    _count: RatingCountAggregateOutputType | null
+    _avg: RatingAvgAggregateOutputType | null
+    _sum: RatingSumAggregateOutputType | null
+    _min: RatingMinAggregateOutputType | null
+    _max: RatingMaxAggregateOutputType | null
+  }
+
+  type GetRatingGroupByPayload<T extends RatingGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<RatingGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof RatingGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], RatingGroupByOutputType[P]>
+            : GetScalarType<T[P], RatingGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type RatingSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    score?: boolean
+    userId?: boolean
+    barbershopId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    score?: boolean
+    userId?: boolean
+    barbershopId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    score?: boolean
+    userId?: boolean
+    barbershopId?: boolean
+    createdAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["rating"]>
+
+  export type RatingSelectScalar = {
+    id?: boolean
+    score?: boolean
+    userId?: boolean
+    barbershopId?: boolean
+    createdAt?: boolean
+  }
+
+  export type RatingOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "score" | "userId" | "barbershopId" | "createdAt", ExtArgs["result"]["rating"]>
+  export type RatingInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
+  }
+  export type RatingIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
+  }
+  export type RatingIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    barbershop?: boolean | BarbershopDefaultArgs<ExtArgs>
+  }
+
+  export type $RatingPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "Rating"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      barbershop: Prisma.$BarbershopPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      score: number
+      userId: string
+      barbershopId: string
+      createdAt: Date
+    }, ExtArgs["result"]["rating"]>
+    composites: {}
+  }
+
+  type RatingGetPayload<S extends boolean | null | undefined | RatingDefaultArgs> = $Result.GetResult<Prisma.$RatingPayload, S>
+
+  type RatingCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<RatingFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: RatingCountAggregateInputType | true
+    }
+
+  export interface RatingDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['Rating'], meta: { name: 'Rating' } }
+    /**
+     * Find zero or one Rating that matches the filter.
+     * @param {RatingFindUniqueArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends RatingFindUniqueArgs>(args: SelectSubset<T, RatingFindUniqueArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Rating that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {RatingFindUniqueOrThrowArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends RatingFindUniqueOrThrowArgs>(args: SelectSubset<T, RatingFindUniqueOrThrowArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rating that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindFirstArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends RatingFindFirstArgs>(args?: SelectSubset<T, RatingFindFirstArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Rating that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindFirstOrThrowArgs} args - Arguments to find a Rating
+     * @example
+     * // Get one Rating
+     * const rating = await prisma.rating.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends RatingFindFirstOrThrowArgs>(args?: SelectSubset<T, RatingFindFirstOrThrowArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Ratings that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Ratings
+     * const ratings = await prisma.rating.findMany()
+     * 
+     * // Get first 10 Ratings
+     * const ratings = await prisma.rating.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const ratingWithIdOnly = await prisma.rating.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends RatingFindManyArgs>(args?: SelectSubset<T, RatingFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Rating.
+     * @param {RatingCreateArgs} args - Arguments to create a Rating.
+     * @example
+     * // Create one Rating
+     * const Rating = await prisma.rating.create({
+     *   data: {
+     *     // ... data to create a Rating
+     *   }
+     * })
+     * 
+     */
+    create<T extends RatingCreateArgs>(args: SelectSubset<T, RatingCreateArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Ratings.
+     * @param {RatingCreateManyArgs} args - Arguments to create many Ratings.
+     * @example
+     * // Create many Ratings
+     * const rating = await prisma.rating.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends RatingCreateManyArgs>(args?: SelectSubset<T, RatingCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Ratings and returns the data saved in the database.
+     * @param {RatingCreateManyAndReturnArgs} args - Arguments to create many Ratings.
+     * @example
+     * // Create many Ratings
+     * const rating = await prisma.rating.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Ratings and only return the `id`
+     * const ratingWithIdOnly = await prisma.rating.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends RatingCreateManyAndReturnArgs>(args?: SelectSubset<T, RatingCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Rating.
+     * @param {RatingDeleteArgs} args - Arguments to delete one Rating.
+     * @example
+     * // Delete one Rating
+     * const Rating = await prisma.rating.delete({
+     *   where: {
+     *     // ... filter to delete one Rating
+     *   }
+     * })
+     * 
+     */
+    delete<T extends RatingDeleteArgs>(args: SelectSubset<T, RatingDeleteArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Rating.
+     * @param {RatingUpdateArgs} args - Arguments to update one Rating.
+     * @example
+     * // Update one Rating
+     * const rating = await prisma.rating.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends RatingUpdateArgs>(args: SelectSubset<T, RatingUpdateArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Ratings.
+     * @param {RatingDeleteManyArgs} args - Arguments to filter Ratings to delete.
+     * @example
+     * // Delete a few Ratings
+     * const { count } = await prisma.rating.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends RatingDeleteManyArgs>(args?: SelectSubset<T, RatingDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ratings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Ratings
+     * const rating = await prisma.rating.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends RatingUpdateManyArgs>(args: SelectSubset<T, RatingUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Ratings and returns the data updated in the database.
+     * @param {RatingUpdateManyAndReturnArgs} args - Arguments to update many Ratings.
+     * @example
+     * // Update many Ratings
+     * const rating = await prisma.rating.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Ratings and only return the `id`
+     * const ratingWithIdOnly = await prisma.rating.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends RatingUpdateManyAndReturnArgs>(args: SelectSubset<T, RatingUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Rating.
+     * @param {RatingUpsertArgs} args - Arguments to update or create a Rating.
+     * @example
+     * // Update or create a Rating
+     * const rating = await prisma.rating.upsert({
+     *   create: {
+     *     // ... data to create a Rating
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Rating we want to update
+     *   }
+     * })
+     */
+    upsert<T extends RatingUpsertArgs>(args: SelectSubset<T, RatingUpsertArgs<ExtArgs>>): Prisma__RatingClient<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Ratings.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingCountArgs} args - Arguments to filter Ratings to count.
+     * @example
+     * // Count the number of Ratings
+     * const count = await prisma.rating.count({
+     *   where: {
+     *     // ... the filter for the Ratings we want to count
+     *   }
+     * })
+    **/
+    count<T extends RatingCountArgs>(
+      args?: Subset<T, RatingCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], RatingCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Rating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends RatingAggregateArgs>(args: Subset<T, RatingAggregateArgs>): Prisma.PrismaPromise<GetRatingAggregateType<T>>
+
+    /**
+     * Group by Rating.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {RatingGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends RatingGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: RatingGroupByArgs['orderBy'] }
+        : { orderBy?: RatingGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, RatingGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetRatingGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the Rating model
+   */
+  readonly fields: RatingFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for Rating.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__RatingClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    barbershop<T extends BarbershopDefaultArgs<ExtArgs> = {}>(args?: Subset<T, BarbershopDefaultArgs<ExtArgs>>): Prisma__BarbershopClient<$Result.GetResult<Prisma.$BarbershopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the Rating model
+   */
+  interface RatingFieldRefs {
+    readonly id: FieldRef<"Rating", 'String'>
+    readonly score: FieldRef<"Rating", 'Int'>
+    readonly userId: FieldRef<"Rating", 'String'>
+    readonly barbershopId: FieldRef<"Rating", 'String'>
+    readonly createdAt: FieldRef<"Rating", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * Rating findUnique
+   */
+  export type RatingFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating findUniqueOrThrow
+   */
+  export type RatingFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating findFirst
+   */
+  export type RatingFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ratings.
+     */
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
+   * Rating findFirstOrThrow
+   */
+  export type RatingFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Rating to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of Ratings.
+     */
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
+   * Rating findMany
+   */
+  export type RatingFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter, which Ratings to fetch.
+     */
+    where?: RatingWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of Ratings to fetch.
+     */
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing Ratings.
+     */
+    cursor?: RatingWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` Ratings from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` Ratings.
+     */
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
+  }
+
+  /**
+   * Rating create
+   */
+  export type RatingCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The data needed to create a Rating.
+     */
+    data: XOR<RatingCreateInput, RatingUncheckedCreateInput>
+  }
+
+  /**
+   * Rating createMany
+   */
+  export type RatingCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many Ratings.
+     */
+    data: RatingCreateManyInput | RatingCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * Rating createManyAndReturn
+   */
+  export type RatingCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * The data used to create many Ratings.
+     */
+    data: RatingCreateManyInput | RatingCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rating update
+   */
+  export type RatingUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The data needed to update a Rating.
+     */
+    data: XOR<RatingUpdateInput, RatingUncheckedUpdateInput>
+    /**
+     * Choose, which Rating to update.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating updateMany
+   */
+  export type RatingUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update Ratings.
+     */
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyInput>
+    /**
+     * Filter which Ratings to update
+     */
+    where?: RatingWhereInput
+    /**
+     * Limit how many Ratings to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rating updateManyAndReturn
+   */
+  export type RatingUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * The data used to update Ratings.
+     */
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyInput>
+    /**
+     * Filter which Ratings to update
+     */
+    where?: RatingWhereInput
+    /**
+     * Limit how many Ratings to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * Rating upsert
+   */
+  export type RatingUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * The filter to search for the Rating to update in case it exists.
+     */
+    where: RatingWhereUniqueInput
+    /**
+     * In case the Rating found by the `where` argument doesn't exist, create a new Rating with this data.
+     */
+    create: XOR<RatingCreateInput, RatingUncheckedCreateInput>
+    /**
+     * In case the Rating was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<RatingUpdateInput, RatingUncheckedUpdateInput>
+  }
+
+  /**
+   * Rating delete
+   */
+  export type RatingDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    /**
+     * Filter which Rating to delete.
+     */
+    where: RatingWhereUniqueInput
+  }
+
+  /**
+   * Rating deleteMany
+   */
+  export type RatingDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which Ratings to delete
+     */
+    where?: RatingWhereInput
+    /**
+     * Limit how many Ratings to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * Rating without action
+   */
+  export type RatingDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Model Barbershop
    */
 
   export type AggregateBarbershop = {
     _count: BarbershopCountAggregateOutputType | null
+    _avg: BarbershopAvgAggregateOutputType | null
+    _sum: BarbershopSumAggregateOutputType | null
     _min: BarbershopMinAggregateOutputType | null
     _max: BarbershopMaxAggregateOutputType | null
+  }
+
+  export type BarbershopAvgAggregateOutputType = {
+    averageRating: number | null
+  }
+
+  export type BarbershopSumAggregateOutputType = {
+    averageRating: number | null
   }
 
   export type BarbershopMinAggregateOutputType = {
@@ -2701,6 +3948,7 @@ export namespace Prisma {
     name: string | null
     address: string | null
     imageUrl: string | null
+    averageRating: number | null
   }
 
   export type BarbershopMaxAggregateOutputType = {
@@ -2708,6 +3956,7 @@ export namespace Prisma {
     name: string | null
     address: string | null
     imageUrl: string | null
+    averageRating: number | null
   }
 
   export type BarbershopCountAggregateOutputType = {
@@ -2715,15 +3964,25 @@ export namespace Prisma {
     name: number
     address: number
     imageUrl: number
+    averageRating: number
     _all: number
   }
 
+
+  export type BarbershopAvgAggregateInputType = {
+    averageRating?: true
+  }
+
+  export type BarbershopSumAggregateInputType = {
+    averageRating?: true
+  }
 
   export type BarbershopMinAggregateInputType = {
     id?: true
     name?: true
     address?: true
     imageUrl?: true
+    averageRating?: true
   }
 
   export type BarbershopMaxAggregateInputType = {
@@ -2731,6 +3990,7 @@ export namespace Prisma {
     name?: true
     address?: true
     imageUrl?: true
+    averageRating?: true
   }
 
   export type BarbershopCountAggregateInputType = {
@@ -2738,6 +3998,7 @@ export namespace Prisma {
     name?: true
     address?: true
     imageUrl?: true
+    averageRating?: true
     _all?: true
   }
 
@@ -2779,6 +4040,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: BarbershopAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BarbershopSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: BarbershopMinAggregateInputType
@@ -2809,6 +4082,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: BarbershopCountAggregateInputType | true
+    _avg?: BarbershopAvgAggregateInputType
+    _sum?: BarbershopSumAggregateInputType
     _min?: BarbershopMinAggregateInputType
     _max?: BarbershopMaxAggregateInputType
   }
@@ -2818,7 +4093,10 @@ export namespace Prisma {
     name: string
     address: string
     imageUrl: string
+    averageRating: number
     _count: BarbershopCountAggregateOutputType | null
+    _avg: BarbershopAvgAggregateOutputType | null
+    _sum: BarbershopSumAggregateOutputType | null
     _min: BarbershopMinAggregateOutputType | null
     _max: BarbershopMaxAggregateOutputType | null
   }
@@ -2842,8 +4120,10 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     imageUrl?: boolean
+    averageRating?: boolean
     services?: boolean | Barbershop$servicesArgs<ExtArgs>
     bookings?: boolean | Barbershop$bookingsArgs<ExtArgs>
+    ratings?: boolean | Barbershop$ratingsArgs<ExtArgs>
     _count?: boolean | BarbershopCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["barbershop"]>
 
@@ -2852,6 +4132,7 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     imageUrl?: boolean
+    averageRating?: boolean
   }, ExtArgs["result"]["barbershop"]>
 
   export type BarbershopSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -2859,6 +4140,7 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     imageUrl?: boolean
+    averageRating?: boolean
   }, ExtArgs["result"]["barbershop"]>
 
   export type BarbershopSelectScalar = {
@@ -2866,12 +4148,14 @@ export namespace Prisma {
     name?: boolean
     address?: boolean
     imageUrl?: boolean
+    averageRating?: boolean
   }
 
-  export type BarbershopOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "imageUrl", ExtArgs["result"]["barbershop"]>
+  export type BarbershopOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "imageUrl" | "averageRating", ExtArgs["result"]["barbershop"]>
   export type BarbershopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | Barbershop$servicesArgs<ExtArgs>
     bookings?: boolean | Barbershop$bookingsArgs<ExtArgs>
+    ratings?: boolean | Barbershop$ratingsArgs<ExtArgs>
     _count?: boolean | BarbershopCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type BarbershopIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -2882,12 +4166,14 @@ export namespace Prisma {
     objects: {
       services: Prisma.$ServicePayload<ExtArgs>[]
       bookings: Prisma.$BookingPayload<ExtArgs>[]
+      ratings: Prisma.$RatingPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       name: string
       address: string
       imageUrl: string
+      averageRating: number
     }, ExtArgs["result"]["barbershop"]>
     composites: {}
   }
@@ -3284,6 +4570,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     services<T extends Barbershop$servicesArgs<ExtArgs> = {}>(args?: Subset<T, Barbershop$servicesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$ServicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     bookings<T extends Barbershop$bookingsArgs<ExtArgs> = {}>(args?: Subset<T, Barbershop$bookingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BookingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    ratings<T extends Barbershop$ratingsArgs<ExtArgs> = {}>(args?: Subset<T, Barbershop$ratingsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$RatingPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3317,6 +4604,7 @@ export namespace Prisma {
     readonly name: FieldRef<"Barbershop", 'String'>
     readonly address: FieldRef<"Barbershop", 'String'>
     readonly imageUrl: FieldRef<"Barbershop", 'String'>
+    readonly averageRating: FieldRef<"Barbershop", 'Float'>
   }
     
 
@@ -3750,6 +5038,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BookingScalarFieldEnum | BookingScalarFieldEnum[]
+  }
+
+  /**
+   * Barbershop.ratings
+   */
+  export type Barbershop$ratingsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the Rating
+     */
+    select?: RatingSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the Rating
+     */
+    omit?: RatingOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: RatingInclude<ExtArgs> | null
+    where?: RatingWhereInput
+    orderBy?: RatingOrderByWithRelationInput | RatingOrderByWithRelationInput[]
+    cursor?: RatingWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: RatingScalarFieldEnum | RatingScalarFieldEnum[]
   }
 
   /**
@@ -9204,11 +10516,23 @@ export namespace Prisma {
   export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
+  export const RatingScalarFieldEnum: {
+    id: 'id',
+    score: 'score',
+    userId: 'userId',
+    barbershopId: 'barbershopId',
+    createdAt: 'createdAt'
+  };
+
+  export type RatingScalarFieldEnum = (typeof RatingScalarFieldEnum)[keyof typeof RatingScalarFieldEnum]
+
+
   export const BarbershopScalarFieldEnum: {
     id: 'id',
     name: 'name',
     address: 'address',
-    imageUrl: 'imageUrl'
+    imageUrl: 'imageUrl',
+    averageRating: 'averageRating'
   };
 
   export type BarbershopScalarFieldEnum = (typeof BarbershopScalarFieldEnum)[keyof typeof BarbershopScalarFieldEnum]
@@ -9332,20 +10656,6 @@ export namespace Prisma {
 
 
   /**
-   * Reference to a field of type 'Decimal'
-   */
-  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-  /**
-   * Reference to a field of type 'Decimal[]'
-   */
-  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -9371,6 +10681,20 @@ export namespace Prisma {
    */
   export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
+
+
+  /**
+   * Reference to a field of type 'Decimal'
+   */
+  export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+  /**
+   * Reference to a field of type 'Decimal[]'
+   */
+  export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
+    
   /**
    * Deep Input Types
    */
@@ -9390,6 +10714,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     bookings?: BookingListRelationFilter
+    ratings?: RatingListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -9403,6 +10728,7 @@ export namespace Prisma {
     accounts?: AccountOrderByRelationAggregateInput
     sessions?: SessionOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
+    ratings?: RatingOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -9419,6 +10745,7 @@ export namespace Prisma {
     accounts?: AccountListRelationFilter
     sessions?: SessionListRelationFilter
     bookings?: BookingListRelationFilter
+    ratings?: RatingListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -9447,6 +10774,66 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
   }
 
+  export type RatingWhereInput = {
+    AND?: RatingWhereInput | RatingWhereInput[]
+    OR?: RatingWhereInput[]
+    NOT?: RatingWhereInput | RatingWhereInput[]
+    id?: StringFilter<"Rating"> | string
+    score?: IntFilter<"Rating"> | number
+    userId?: StringFilter<"Rating"> | string
+    barbershopId?: StringFilter<"Rating"> | string
+    createdAt?: DateTimeFilter<"Rating"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    barbershop?: XOR<BarbershopScalarRelationFilter, BarbershopWhereInput>
+  }
+
+  export type RatingOrderByWithRelationInput = {
+    id?: SortOrder
+    score?: SortOrder
+    userId?: SortOrder
+    barbershopId?: SortOrder
+    createdAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+    barbershop?: BarbershopOrderByWithRelationInput
+  }
+
+  export type RatingWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: RatingWhereInput | RatingWhereInput[]
+    OR?: RatingWhereInput[]
+    NOT?: RatingWhereInput | RatingWhereInput[]
+    score?: IntFilter<"Rating"> | number
+    userId?: StringFilter<"Rating"> | string
+    barbershopId?: StringFilter<"Rating"> | string
+    createdAt?: DateTimeFilter<"Rating"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    barbershop?: XOR<BarbershopScalarRelationFilter, BarbershopWhereInput>
+  }, "id">
+
+  export type RatingOrderByWithAggregationInput = {
+    id?: SortOrder
+    score?: SortOrder
+    userId?: SortOrder
+    barbershopId?: SortOrder
+    createdAt?: SortOrder
+    _count?: RatingCountOrderByAggregateInput
+    _avg?: RatingAvgOrderByAggregateInput
+    _max?: RatingMaxOrderByAggregateInput
+    _min?: RatingMinOrderByAggregateInput
+    _sum?: RatingSumOrderByAggregateInput
+  }
+
+  export type RatingScalarWhereWithAggregatesInput = {
+    AND?: RatingScalarWhereWithAggregatesInput | RatingScalarWhereWithAggregatesInput[]
+    OR?: RatingScalarWhereWithAggregatesInput[]
+    NOT?: RatingScalarWhereWithAggregatesInput | RatingScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"Rating"> | string
+    score?: IntWithAggregatesFilter<"Rating"> | number
+    userId?: StringWithAggregatesFilter<"Rating"> | string
+    barbershopId?: StringWithAggregatesFilter<"Rating"> | string
+    createdAt?: DateTimeWithAggregatesFilter<"Rating"> | Date | string
+  }
+
   export type BarbershopWhereInput = {
     AND?: BarbershopWhereInput | BarbershopWhereInput[]
     OR?: BarbershopWhereInput[]
@@ -9455,8 +10842,10 @@ export namespace Prisma {
     name?: StringFilter<"Barbershop"> | string
     address?: StringFilter<"Barbershop"> | string
     imageUrl?: StringFilter<"Barbershop"> | string
+    averageRating?: FloatFilter<"Barbershop"> | number
     services?: ServiceListRelationFilter
     bookings?: BookingListRelationFilter
+    ratings?: RatingListRelationFilter
   }
 
   export type BarbershopOrderByWithRelationInput = {
@@ -9464,8 +10853,10 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     imageUrl?: SortOrder
+    averageRating?: SortOrder
     services?: ServiceOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
+    ratings?: RatingOrderByRelationAggregateInput
   }
 
   export type BarbershopWhereUniqueInput = Prisma.AtLeast<{
@@ -9476,8 +10867,10 @@ export namespace Prisma {
     name?: StringFilter<"Barbershop"> | string
     address?: StringFilter<"Barbershop"> | string
     imageUrl?: StringFilter<"Barbershop"> | string
+    averageRating?: FloatFilter<"Barbershop"> | number
     services?: ServiceListRelationFilter
     bookings?: BookingListRelationFilter
+    ratings?: RatingListRelationFilter
   }, "id">
 
   export type BarbershopOrderByWithAggregationInput = {
@@ -9485,9 +10878,12 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     imageUrl?: SortOrder
+    averageRating?: SortOrder
     _count?: BarbershopCountOrderByAggregateInput
+    _avg?: BarbershopAvgOrderByAggregateInput
     _max?: BarbershopMaxOrderByAggregateInput
     _min?: BarbershopMinOrderByAggregateInput
+    _sum?: BarbershopSumOrderByAggregateInput
   }
 
   export type BarbershopScalarWhereWithAggregatesInput = {
@@ -9498,6 +10894,7 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Barbershop"> | string
     address?: StringWithAggregatesFilter<"Barbershop"> | string
     imageUrl?: StringWithAggregatesFilter<"Barbershop"> | string
+    averageRating?: FloatWithAggregatesFilter<"Barbershop"> | number
   }
 
   export type ServiceWhereInput = {
@@ -9823,6 +11220,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -9836,6 +11234,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -9849,6 +11248,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -9862,6 +11262,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -9894,13 +11295,69 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RatingCreateInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRatingsInput
+    barbershop: BarbershopCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateInput = {
+    id?: string
+    score: number
+    userId: string
+    barbershopId: string
+    createdAt?: Date | string
+  }
+
+  export type RatingUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+    barbershop?: BarbershopUpdateOneRequiredWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    barbershopId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingCreateManyInput = {
+    id?: string
+    score: number
+    userId: string
+    barbershopId: string
+    createdAt?: Date | string
+  }
+
+  export type RatingUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    barbershopId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type BarbershopCreateInput = {
     id?: string
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
     services?: ServiceCreateNestedManyWithoutBarbershopInput
     bookings?: BookingCreateNestedManyWithoutBarbershopInput
+    ratings?: RatingCreateNestedManyWithoutBarbershopInput
   }
 
   export type BarbershopUncheckedCreateInput = {
@@ -9908,8 +11365,10 @@ export namespace Prisma {
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
     services?: ServiceUncheckedCreateNestedManyWithoutBarbershopInput
     bookings?: BookingUncheckedCreateNestedManyWithoutBarbershopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutBarbershopInput
   }
 
   export type BarbershopUpdateInput = {
@@ -9917,8 +11376,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
     services?: ServiceUpdateManyWithoutBarbershopNestedInput
     bookings?: BookingUpdateManyWithoutBarbershopNestedInput
+    ratings?: RatingUpdateManyWithoutBarbershopNestedInput
   }
 
   export type BarbershopUncheckedUpdateInput = {
@@ -9926,8 +11387,10 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
     services?: ServiceUncheckedUpdateManyWithoutBarbershopNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutBarbershopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutBarbershopNestedInput
   }
 
   export type BarbershopCreateManyInput = {
@@ -9935,6 +11398,7 @@ export namespace Prisma {
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
   }
 
   export type BarbershopUpdateManyMutationInput = {
@@ -9942,6 +11406,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
   }
 
   export type BarbershopUncheckedUpdateManyInput = {
@@ -9949,6 +11414,7 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
   }
 
   export type ServiceCreateInput = {
@@ -10334,6 +11800,12 @@ export namespace Prisma {
     none?: BookingWhereInput
   }
 
+  export type RatingListRelationFilter = {
+    every?: RatingWhereInput
+    some?: RatingWhereInput
+    none?: RatingWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -10348,6 +11820,10 @@ export namespace Prisma {
   }
 
   export type BookingOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type RatingOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -10445,6 +11921,86 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type IntFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntFilter<$PrismaModel> | number
+  }
+
+  export type UserScalarRelationFilter = {
+    is?: UserWhereInput
+    isNot?: UserWhereInput
+  }
+
+  export type BarbershopScalarRelationFilter = {
+    is?: BarbershopWhereInput
+    isNot?: BarbershopWhereInput
+  }
+
+  export type RatingCountOrderByAggregateInput = {
+    id?: SortOrder
+    score?: SortOrder
+    userId?: SortOrder
+    barbershopId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RatingAvgOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type RatingMaxOrderByAggregateInput = {
+    id?: SortOrder
+    score?: SortOrder
+    userId?: SortOrder
+    barbershopId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RatingMinOrderByAggregateInput = {
+    id?: SortOrder
+    score?: SortOrder
+    userId?: SortOrder
+    barbershopId?: SortOrder
+    createdAt?: SortOrder
+  }
+
+  export type RatingSumOrderByAggregateInput = {
+    score?: SortOrder
+  }
+
+  export type IntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type ServiceListRelationFilter = {
     every?: ServiceWhereInput
     some?: ServiceWhereInput
@@ -10460,6 +12016,11 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     imageUrl?: SortOrder
+    averageRating?: SortOrder
+  }
+
+  export type BarbershopAvgOrderByAggregateInput = {
+    averageRating?: SortOrder
   }
 
   export type BarbershopMaxOrderByAggregateInput = {
@@ -10467,6 +12028,7 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     imageUrl?: SortOrder
+    averageRating?: SortOrder
   }
 
   export type BarbershopMinOrderByAggregateInput = {
@@ -10474,6 +12036,27 @@ export namespace Prisma {
     name?: SortOrder
     address?: SortOrder
     imageUrl?: SortOrder
+    averageRating?: SortOrder
+  }
+
+  export type BarbershopSumOrderByAggregateInput = {
+    averageRating?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type DecimalFilter<$PrismaModel = never> = {
@@ -10485,11 +12068,6 @@ export namespace Prisma {
     gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     not?: NestedDecimalFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string
-  }
-
-  export type BarbershopScalarRelationFilter = {
-    is?: BarbershopWhereInput
-    isNot?: BarbershopWhereInput
   }
 
   export type ServiceCountOrderByAggregateInput = {
@@ -10541,11 +12119,6 @@ export namespace Prisma {
     _sum?: NestedDecimalFilter<$PrismaModel>
     _min?: NestedDecimalFilter<$PrismaModel>
     _max?: NestedDecimalFilter<$PrismaModel>
-  }
-
-  export type UserScalarRelationFilter = {
-    is?: UserWhereInput
-    isNot?: UserWhereInput
   }
 
   export type ServiceScalarRelationFilter = {
@@ -10727,6 +12300,13 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
+  export type RatingCreateNestedManyWithoutUserInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -10746,6 +12326,13 @@ export namespace Prisma {
     connectOrCreate?: BookingCreateOrConnectWithoutUserInput | BookingCreateOrConnectWithoutUserInput[]
     createMany?: BookingCreateManyUserInputEnvelope
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -10806,6 +12393,20 @@ export namespace Prisma {
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
+  export type RatingUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutUserInput | RatingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutUserInput | RatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutUserInput | RatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -10848,6 +12449,56 @@ export namespace Prisma {
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
+  export type RatingUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput> | RatingCreateWithoutUserInput[] | RatingUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutUserInput | RatingCreateOrConnectWithoutUserInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutUserInput | RatingUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: RatingCreateManyUserInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutUserInput | RatingUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutUserInput | RatingUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutRatingsInput = {
+    create?: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatingsInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type BarbershopCreateNestedOneWithoutRatingsInput = {
+    create?: XOR<BarbershopCreateWithoutRatingsInput, BarbershopUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: BarbershopCreateOrConnectWithoutRatingsInput
+    connect?: BarbershopWhereUniqueInput
+  }
+
+  export type IntFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
+  export type UserUpdateOneRequiredWithoutRatingsNestedInput = {
+    create?: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: UserCreateOrConnectWithoutRatingsInput
+    upsert?: UserUpsertWithoutRatingsInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutRatingsInput, UserUpdateWithoutRatingsInput>, UserUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type BarbershopUpdateOneRequiredWithoutRatingsNestedInput = {
+    create?: XOR<BarbershopCreateWithoutRatingsInput, BarbershopUncheckedCreateWithoutRatingsInput>
+    connectOrCreate?: BarbershopCreateOrConnectWithoutRatingsInput
+    upsert?: BarbershopUpsertWithoutRatingsInput
+    connect?: BarbershopWhereUniqueInput
+    update?: XOR<XOR<BarbershopUpdateToOneWithWhereWithoutRatingsInput, BarbershopUpdateWithoutRatingsInput>, BarbershopUncheckedUpdateWithoutRatingsInput>
+  }
+
   export type ServiceCreateNestedManyWithoutBarbershopInput = {
     create?: XOR<ServiceCreateWithoutBarbershopInput, ServiceUncheckedCreateWithoutBarbershopInput> | ServiceCreateWithoutBarbershopInput[] | ServiceUncheckedCreateWithoutBarbershopInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutBarbershopInput | ServiceCreateOrConnectWithoutBarbershopInput[]
@@ -10862,6 +12513,13 @@ export namespace Prisma {
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
   }
 
+  export type RatingCreateNestedManyWithoutBarbershopInput = {
+    create?: XOR<RatingCreateWithoutBarbershopInput, RatingUncheckedCreateWithoutBarbershopInput> | RatingCreateWithoutBarbershopInput[] | RatingUncheckedCreateWithoutBarbershopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutBarbershopInput | RatingCreateOrConnectWithoutBarbershopInput[]
+    createMany?: RatingCreateManyBarbershopInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
   export type ServiceUncheckedCreateNestedManyWithoutBarbershopInput = {
     create?: XOR<ServiceCreateWithoutBarbershopInput, ServiceUncheckedCreateWithoutBarbershopInput> | ServiceCreateWithoutBarbershopInput[] | ServiceUncheckedCreateWithoutBarbershopInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutBarbershopInput | ServiceCreateOrConnectWithoutBarbershopInput[]
@@ -10874,6 +12532,21 @@ export namespace Prisma {
     connectOrCreate?: BookingCreateOrConnectWithoutBarbershopInput | BookingCreateOrConnectWithoutBarbershopInput[]
     createMany?: BookingCreateManyBarbershopInputEnvelope
     connect?: BookingWhereUniqueInput | BookingWhereUniqueInput[]
+  }
+
+  export type RatingUncheckedCreateNestedManyWithoutBarbershopInput = {
+    create?: XOR<RatingCreateWithoutBarbershopInput, RatingUncheckedCreateWithoutBarbershopInput> | RatingCreateWithoutBarbershopInput[] | RatingUncheckedCreateWithoutBarbershopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutBarbershopInput | RatingCreateOrConnectWithoutBarbershopInput[]
+    createMany?: RatingCreateManyBarbershopInputEnvelope
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type ServiceUpdateManyWithoutBarbershopNestedInput = {
@@ -10904,6 +12577,20 @@ export namespace Prisma {
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
   }
 
+  export type RatingUpdateManyWithoutBarbershopNestedInput = {
+    create?: XOR<RatingCreateWithoutBarbershopInput, RatingUncheckedCreateWithoutBarbershopInput> | RatingCreateWithoutBarbershopInput[] | RatingUncheckedCreateWithoutBarbershopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutBarbershopInput | RatingCreateOrConnectWithoutBarbershopInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutBarbershopInput | RatingUpsertWithWhereUniqueWithoutBarbershopInput[]
+    createMany?: RatingCreateManyBarbershopInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutBarbershopInput | RatingUpdateWithWhereUniqueWithoutBarbershopInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutBarbershopInput | RatingUpdateManyWithWhereWithoutBarbershopInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
+  }
+
   export type ServiceUncheckedUpdateManyWithoutBarbershopNestedInput = {
     create?: XOR<ServiceCreateWithoutBarbershopInput, ServiceUncheckedCreateWithoutBarbershopInput> | ServiceCreateWithoutBarbershopInput[] | ServiceUncheckedCreateWithoutBarbershopInput[]
     connectOrCreate?: ServiceCreateOrConnectWithoutBarbershopInput | ServiceCreateOrConnectWithoutBarbershopInput[]
@@ -10930,6 +12617,20 @@ export namespace Prisma {
     update?: BookingUpdateWithWhereUniqueWithoutBarbershopInput | BookingUpdateWithWhereUniqueWithoutBarbershopInput[]
     updateMany?: BookingUpdateManyWithWhereWithoutBarbershopInput | BookingUpdateManyWithWhereWithoutBarbershopInput[]
     deleteMany?: BookingScalarWhereInput | BookingScalarWhereInput[]
+  }
+
+  export type RatingUncheckedUpdateManyWithoutBarbershopNestedInput = {
+    create?: XOR<RatingCreateWithoutBarbershopInput, RatingUncheckedCreateWithoutBarbershopInput> | RatingCreateWithoutBarbershopInput[] | RatingUncheckedCreateWithoutBarbershopInput[]
+    connectOrCreate?: RatingCreateOrConnectWithoutBarbershopInput | RatingCreateOrConnectWithoutBarbershopInput[]
+    upsert?: RatingUpsertWithWhereUniqueWithoutBarbershopInput | RatingUpsertWithWhereUniqueWithoutBarbershopInput[]
+    createMany?: RatingCreateManyBarbershopInputEnvelope
+    set?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    disconnect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    delete?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    connect?: RatingWhereUniqueInput | RatingWhereUniqueInput[]
+    update?: RatingUpdateWithWhereUniqueWithoutBarbershopInput | RatingUpdateWithWhereUniqueWithoutBarbershopInput[]
+    updateMany?: RatingUpdateManyWithWhereWithoutBarbershopInput | RatingUpdateManyWithWhereWithoutBarbershopInput[]
+    deleteMany?: RatingScalarWhereInput | RatingScalarWhereInput[]
   }
 
   export type BarbershopCreateNestedOneWithoutServicesInput = {
@@ -11208,6 +12909,49 @@ export namespace Prisma {
     _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
+  export type NestedIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | IntFieldRefInput<$PrismaModel>
+    in?: number[] | ListIntFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListIntFieldRefInput<$PrismaModel>
+    lt?: number | IntFieldRefInput<$PrismaModel>
+    lte?: number | IntFieldRefInput<$PrismaModel>
+    gt?: number | IntFieldRefInput<$PrismaModel>
+    gte?: number | IntFieldRefInput<$PrismaModel>
+    not?: NestedIntWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedIntFilter<$PrismaModel>
+    _min?: NestedIntFilter<$PrismaModel>
+    _max?: NestedIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type NestedDecimalFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel>
@@ -11346,6 +13090,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RatingCreateWithoutUserInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    barbershop: BarbershopCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateWithoutUserInput = {
+    id?: string
+    score: number
+    barbershopId: string
+    createdAt?: Date | string
+  }
+
+  export type RatingCreateOrConnectWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type RatingCreateManyUserInputEnvelope = {
+    data: RatingCreateManyUserInput | RatingCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -11433,6 +13201,157 @@ export namespace Prisma {
     date?: DateTimeFilter<"Booking"> | Date | string
   }
 
+  export type RatingUpsertWithWhereUniqueWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutUserInput, RatingUncheckedUpdateWithoutUserInput>
+    create: XOR<RatingCreateWithoutUserInput, RatingUncheckedCreateWithoutUserInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutUserInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutUserInput, RatingUncheckedUpdateWithoutUserInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutUserInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type RatingScalarWhereInput = {
+    AND?: RatingScalarWhereInput | RatingScalarWhereInput[]
+    OR?: RatingScalarWhereInput[]
+    NOT?: RatingScalarWhereInput | RatingScalarWhereInput[]
+    id?: StringFilter<"Rating"> | string
+    score?: IntFilter<"Rating"> | number
+    userId?: StringFilter<"Rating"> | string
+    barbershopId?: StringFilter<"Rating"> | string
+    createdAt?: DateTimeFilter<"Rating"> | Date | string
+  }
+
+  export type UserCreateWithoutRatingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    bookings?: BookingCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutRatingsInput = {
+    id?: string
+    name?: string | null
+    email?: string | null
+    emailVerified?: Date | string | null
+    image?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutRatingsInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+  }
+
+  export type BarbershopCreateWithoutRatingsInput = {
+    id?: string
+    name: string
+    address: string
+    imageUrl: string
+    averageRating?: number
+    services?: ServiceCreateNestedManyWithoutBarbershopInput
+    bookings?: BookingCreateNestedManyWithoutBarbershopInput
+  }
+
+  export type BarbershopUncheckedCreateWithoutRatingsInput = {
+    id?: string
+    name: string
+    address: string
+    imageUrl: string
+    averageRating?: number
+    services?: ServiceUncheckedCreateNestedManyWithoutBarbershopInput
+    bookings?: BookingUncheckedCreateNestedManyWithoutBarbershopInput
+  }
+
+  export type BarbershopCreateOrConnectWithoutRatingsInput = {
+    where: BarbershopWhereUniqueInput
+    create: XOR<BarbershopCreateWithoutRatingsInput, BarbershopUncheckedCreateWithoutRatingsInput>
+  }
+
+  export type UserUpsertWithoutRatingsInput = {
+    update: XOR<UserUpdateWithoutRatingsInput, UserUncheckedUpdateWithoutRatingsInput>
+    create: XOR<UserCreateWithoutRatingsInput, UserUncheckedCreateWithoutRatingsInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutRatingsInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutRatingsInput, UserUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type UserUpdateWithoutRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    bookings?: BookingUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type BarbershopUpsertWithoutRatingsInput = {
+    update: XOR<BarbershopUpdateWithoutRatingsInput, BarbershopUncheckedUpdateWithoutRatingsInput>
+    create: XOR<BarbershopCreateWithoutRatingsInput, BarbershopUncheckedCreateWithoutRatingsInput>
+    where?: BarbershopWhereInput
+  }
+
+  export type BarbershopUpdateToOneWithWhereWithoutRatingsInput = {
+    where?: BarbershopWhereInput
+    data: XOR<BarbershopUpdateWithoutRatingsInput, BarbershopUncheckedUpdateWithoutRatingsInput>
+  }
+
+  export type BarbershopUpdateWithoutRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
+    services?: ServiceUpdateManyWithoutBarbershopNestedInput
+    bookings?: BookingUpdateManyWithoutBarbershopNestedInput
+  }
+
+  export type BarbershopUncheckedUpdateWithoutRatingsInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    address?: StringFieldUpdateOperationsInput | string
+    imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
+    services?: ServiceUncheckedUpdateManyWithoutBarbershopNestedInput
+    bookings?: BookingUncheckedUpdateManyWithoutBarbershopNestedInput
+  }
+
   export type ServiceCreateWithoutBarbershopInput = {
     id?: string
     name: string
@@ -11485,6 +13404,30 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type RatingCreateWithoutBarbershopInput = {
+    id?: string
+    score: number
+    createdAt?: Date | string
+    user: UserCreateNestedOneWithoutRatingsInput
+  }
+
+  export type RatingUncheckedCreateWithoutBarbershopInput = {
+    id?: string
+    score: number
+    userId: string
+    createdAt?: Date | string
+  }
+
+  export type RatingCreateOrConnectWithoutBarbershopInput = {
+    where: RatingWhereUniqueInput
+    create: XOR<RatingCreateWithoutBarbershopInput, RatingUncheckedCreateWithoutBarbershopInput>
+  }
+
+  export type RatingCreateManyBarbershopInputEnvelope = {
+    data: RatingCreateManyBarbershopInput | RatingCreateManyBarbershopInput[]
+    skipDuplicates?: boolean
+  }
+
   export type ServiceUpsertWithWhereUniqueWithoutBarbershopInput = {
     where: ServiceWhereUniqueInput
     update: XOR<ServiceUpdateWithoutBarbershopInput, ServiceUncheckedUpdateWithoutBarbershopInput>
@@ -11529,12 +13472,30 @@ export namespace Prisma {
     data: XOR<BookingUpdateManyMutationInput, BookingUncheckedUpdateManyWithoutBarbershopInput>
   }
 
+  export type RatingUpsertWithWhereUniqueWithoutBarbershopInput = {
+    where: RatingWhereUniqueInput
+    update: XOR<RatingUpdateWithoutBarbershopInput, RatingUncheckedUpdateWithoutBarbershopInput>
+    create: XOR<RatingCreateWithoutBarbershopInput, RatingUncheckedCreateWithoutBarbershopInput>
+  }
+
+  export type RatingUpdateWithWhereUniqueWithoutBarbershopInput = {
+    where: RatingWhereUniqueInput
+    data: XOR<RatingUpdateWithoutBarbershopInput, RatingUncheckedUpdateWithoutBarbershopInput>
+  }
+
+  export type RatingUpdateManyWithWhereWithoutBarbershopInput = {
+    where: RatingScalarWhereInput
+    data: XOR<RatingUpdateManyMutationInput, RatingUncheckedUpdateManyWithoutBarbershopInput>
+  }
+
   export type BarbershopCreateWithoutServicesInput = {
     id?: string
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
     bookings?: BookingCreateNestedManyWithoutBarbershopInput
+    ratings?: RatingCreateNestedManyWithoutBarbershopInput
   }
 
   export type BarbershopUncheckedCreateWithoutServicesInput = {
@@ -11542,7 +13503,9 @@ export namespace Prisma {
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
     bookings?: BookingUncheckedCreateNestedManyWithoutBarbershopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutBarbershopInput
   }
 
   export type BarbershopCreateOrConnectWithoutServicesInput = {
@@ -11590,7 +13553,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
     bookings?: BookingUpdateManyWithoutBarbershopNestedInput
+    ratings?: RatingUpdateManyWithoutBarbershopNestedInput
   }
 
   export type BarbershopUncheckedUpdateWithoutServicesInput = {
@@ -11598,7 +13563,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
     bookings?: BookingUncheckedUpdateManyWithoutBarbershopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutBarbershopNestedInput
   }
 
   export type BookingUpsertWithWhereUniqueWithoutServiceInput = {
@@ -11627,6 +13594,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBookingsInput = {
@@ -11639,6 +13607,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBookingsInput = {
@@ -11674,7 +13643,9 @@ export namespace Prisma {
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
     services?: ServiceCreateNestedManyWithoutBarbershopInput
+    ratings?: RatingCreateNestedManyWithoutBarbershopInput
   }
 
   export type BarbershopUncheckedCreateWithoutBookingsInput = {
@@ -11682,7 +13653,9 @@ export namespace Prisma {
     name: string
     address: string
     imageUrl: string
+    averageRating?: number
     services?: ServiceUncheckedCreateNestedManyWithoutBarbershopInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutBarbershopInput
   }
 
   export type BarbershopCreateOrConnectWithoutBookingsInput = {
@@ -11711,6 +13684,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBookingsInput = {
@@ -11723,6 +13697,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type ServiceUpsertWithoutBookingInput = {
@@ -11770,7 +13745,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
     services?: ServiceUpdateManyWithoutBarbershopNestedInput
+    ratings?: RatingUpdateManyWithoutBarbershopNestedInput
   }
 
   export type BarbershopUncheckedUpdateWithoutBookingsInput = {
@@ -11778,7 +13755,9 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
+    averageRating?: FloatFieldUpdateOperationsInput | number
     services?: ServiceUncheckedUpdateManyWithoutBarbershopNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutBarbershopNestedInput
   }
 
   export type UserCreateWithoutAccountsInput = {
@@ -11791,6 +13770,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionCreateNestedManyWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -11803,6 +13783,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -11831,6 +13812,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUpdateManyWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -11843,6 +13825,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -11855,6 +13838,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountCreateNestedManyWithoutUserInput
     bookings?: BookingCreateNestedManyWithoutUserInput
+    ratings?: RatingCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -11867,6 +13851,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     bookings?: BookingUncheckedCreateNestedManyWithoutUserInput
+    ratings?: RatingUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -11895,6 +13880,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUpdateManyWithoutUserNestedInput
     bookings?: BookingUpdateManyWithoutUserNestedInput
+    ratings?: RatingUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -11907,6 +13893,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutUserNestedInput
+    ratings?: RatingUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type AccountCreateManyUserInput = {
@@ -11934,6 +13921,13 @@ export namespace Prisma {
     serviceId: string
     barbershopId: string
     date: Date | string
+  }
+
+  export type RatingCreateManyUserInput = {
+    id?: string
+    score: number
+    barbershopId: string
+    createdAt?: Date | string
   }
 
   export type AccountUpdateWithoutUserInput = {
@@ -12017,6 +14011,27 @@ export namespace Prisma {
     date?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type RatingUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    barbershop?: BarbershopUpdateOneRequiredWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    barbershopId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    barbershopId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type ServiceCreateManyBarbershopInput = {
     id?: string
     name: string
@@ -12030,6 +14045,13 @@ export namespace Prisma {
     userId: string
     serviceId: string
     date: Date | string
+  }
+
+  export type RatingCreateManyBarbershopInput = {
+    id?: string
+    score: number
+    userId: string
+    createdAt?: Date | string
   }
 
   export type ServiceUpdateWithoutBarbershopInput = {
@@ -12077,6 +14099,27 @@ export namespace Prisma {
     userId?: StringFieldUpdateOperationsInput | string
     serviceId?: StringFieldUpdateOperationsInput | string
     date?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUpdateWithoutBarbershopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutRatingsNestedInput
+  }
+
+  export type RatingUncheckedUpdateWithoutBarbershopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type RatingUncheckedUpdateManyWithoutBarbershopInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    score?: IntFieldUpdateOperationsInput | number
+    userId?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type BookingCreateManyServiceInput = {

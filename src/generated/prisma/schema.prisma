@@ -25,15 +25,28 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
+  ratings       Rating[] // adicionado para rating
+}
+
+model Rating {
+  id           String     @id @default(cuid())
+  score        Int
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  createdAt    DateTime   @default(now())
 }
 
 model Barbershop {
-  id       String    @id @default(uuid())
-  name     String
-  address  String
-  imageUrl String
-  services Service[]
-  bookings Booking[]
+  id            String    @id @default(uuid())
+  name          String
+  address       String
+  imageUrl      String
+  services      Service[]
+  bookings      Booking[]
+  averageRating Float     @default(0.0) // add para rating
+  ratings       Rating[] // add para rating
 }
 
 model Service {

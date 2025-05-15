@@ -25,15 +25,28 @@ model User {
   accounts      Account[]
   sessions      Session[]
   bookings      Booking[]
+  ratings       Rating[] // adicionado para rating
+}
+
+model Rating {
+  id           String     @id @default(cuid())
+  score        Int
+  userId       String
+  user         User       @relation(fields: [userId], references: [id])
+  barbershopId String
+  barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
+  createdAt    DateTime   @default(now())
 }
 
 model Barbershop {
-  id       String    @id @default(uuid())
-  name     String
-  address  String
-  imageUrl String
-  services Service[]
-  bookings Booking[]
+  id            String    @id @default(uuid())
+  name          String
+  address       String
+  imageUrl      String
+  services      Service[]
+  bookings      Booking[]
+  averageRating Float     @default(0.0) // add para rating
+  ratings       Rating[] // add para rating
 }
 
 model Service {
@@ -59,19 +72,20 @@ model Booking {
 }
 
 model Account {
-  id                 String   @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
-  user               User     @relation(fields: [userId], references: [id])
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id])
+
   @@unique([provider, providerAccountId])
 }
 
@@ -87,5 +101,6 @@ model VerificationToken {
   identifier String
   token      String   @unique
   expires    DateTime
+
   @@unique([identifier, token])
 }

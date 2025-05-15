@@ -130,11 +130,20 @@ exports.Prisma.UserScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.RatingScalarFieldEnum = {
+  id: 'id',
+  score: 'score',
+  userId: 'userId',
+  barbershopId: 'barbershopId',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.BarbershopScalarFieldEnum = {
   id: 'id',
   name: 'name',
   address: 'address',
-  imageUrl: 'imageUrl'
+  imageUrl: 'imageUrl',
+  averageRating: 'averageRating'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
@@ -200,6 +209,7 @@ exports.Prisma.NullsOrder = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Rating: 'Rating',
   Barbershop: 'Barbershop',
   Service: 'Service',
   Booking: 'Booking',
