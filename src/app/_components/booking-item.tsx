@@ -3,7 +3,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
-import { Prisma } from "@/generated/prisma";
 import { ptBR } from "date-fns/locale/pt-BR";
 import { format, isPast } from "date-fns";
 import {
@@ -32,7 +31,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-
+import RatingForm from "./ratingForm";
+import { rateBarbershop } from "../_action/rate-barbershop";
 
 interface BookingItemProps {
   booking: {
@@ -58,6 +58,7 @@ interface BookingItemProps {
 const BookingItem = ({ booking }: BookingItemProps) => {
   const [isDeleteLoading, setIsDeleteLoading] = useState(false);
   const isBookingConfirmed = isPast(booking.date);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
   const handleCancelClick = async () => {
     setIsDeleteLoading(true);
@@ -72,8 +73,21 @@ const BookingItem = ({ booking }: BookingItemProps) => {
     }
   };
 
+  const handleRatingSubmit = async (rating: number) => {
+    try {
+      await rateBarbershop(booking.barbershop.id, rating);
+      toast.success("Avaliação enviada com sucesso!");
+      console.log(rating, );
+
+      setSheetOpen(false); // Fecha o Sheet após avaliação bem-sucedida
+    } catch (error) {
+      console.error("Erro ao enviar avaliação:", error);
+      toast.error("Erro ao enviar avaliação.");
+    }
+  };
+
   return (
-    <Sheet>
+    <Sheet open={sheetOpen} onOpenChange={setSheetOpen}>
       <SheetTrigger asChild>
         <Card className="min-w-full">
           <CardContent className="p-5 flex justify-between py-0">
@@ -185,7 +199,9 @@ const BookingItem = ({ booking }: BookingItemProps) => {
               </div>
             </CardContent>
           </Card>
-
+          <div className="flex flex-col justify-center items-center mt-4">
+            <RatingForm onRatingSubmit={handleRatingSubmit} />
+          </div>
           <SheetFooter className="flex flex-row gap-3 mt-6">
             <SheetClose asChild>
               <Button variant="secondary" className="flex-1 basis-0">

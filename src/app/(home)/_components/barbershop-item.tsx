@@ -26,7 +26,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
           <div className="absolute top-2 left-2 z-50">
             <Badge variant="secondary" className="flex items-center top-3 left-3 gap-1 opacity-90">
               <StarIcon size={12}  className="fill-primary text-primary"/>
-                <span className="text-xs">5,0</span>
+                <span className="text-xs">{barbershop.averageRating}</span>
             </Badge>
           </div>
           <Image
