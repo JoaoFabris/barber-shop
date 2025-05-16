@@ -40,6 +40,17 @@ export default async function Home() {
   }));
 
   const shuffledBarbershops = [...barbershops].sort(() => Math.random() - 0.5);
+  
+   const popularBarbershops = [...barbershops]
+    .sort((a, b) => {
+      // Ordenar primeiro por média de avaliação (decrescente)
+      if (b.averageRating !== a.averageRating) {
+        return b.averageRating - a.averageRating;
+      }
+      
+      // Se as médias forem iguais, ordenar por quantidade de avaliações (decrescente)
+      return b.averageRating - a.averageRating;
+    })
 
   return (
     <div>
@@ -95,7 +106,7 @@ export default async function Home() {
           Populares
         </h2>
         <div className="px-5 flex gap-4 overflow-x-auto [&::-webkit-scrollbar]:hidden">
-          {barbershops.map((barbershop: Barbershop) => (
+          {popularBarbershops.map((barbershop: Barbershop) => (
             <div key={barbershop.id} className="min-w-[167px] max-w-[167px]">
               <BarbershopItem key={barbershop.id} barbershop={barbershop} />
             </div>

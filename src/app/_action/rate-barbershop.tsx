@@ -48,11 +48,12 @@ export const rateBarbershop = async (barbershopId: string, score: number) => {
     // IMPORTANTE: Atualizar a barbearia com a nova média
     await db.barbershop.update({
       where: { id: barbershopId },
-      data: { averageRating }, // o data escolhe qual campo atualizar
+      data: { averageRating, ratingCount: ratings.length, }, // o data escolhe qual campo atualizar
+      
     });
   
     
-    return { success: true, averageRating };
+    return { success: true, averageRating, ratingCount: ratings.length };
   } catch (error) {
     console.error("Error na avaliação", error);
     throw new Error("Erro ao salvar avaliação");

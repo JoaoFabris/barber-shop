@@ -36,6 +36,7 @@ model Rating {
   barbershopId String
   barbershop   Barbershop @relation(fields: [barbershopId], references: [id])
   createdAt    DateTime   @default(now())
+  // ratingCount NÃO deve estar aqui
 }
 
 model Barbershop {
@@ -45,8 +46,9 @@ model Barbershop {
   imageUrl      String
   services      Service[]
   bookings      Booking[]
-  averageRating Float     @default(0.0) // add para rating
-  ratings       Rating[] // add para rating
+  averageRating Float     @default(0.0)
+  ratingCount   Int       @default(0) // Este campo deve estar AQUI
+  ratings       Rating[]
 }
 
 model Service {

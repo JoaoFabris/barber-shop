@@ -15,7 +15,15 @@ export default async function BarberShopPage(props: { params: Promise<{ id: stri
 
   const barbershop = await db.barbershop.findUnique({
     where: { id: params.id },
-    include: { services: true }
+    include: { 
+      services: true,
+      // _count: É um objeto especial do Prisma que permite contar registros relacionados
+      _count: {
+        select: {
+          ratings: true
+        }
+      }
+    }
   });
 
   if (!barbershop) {
@@ -24,6 +32,8 @@ export default async function BarberShopPage(props: { params: Promise<{ id: stri
 
   const barbershopSerialized = {
     ...barbershop,
+    // Adicionar ratingCount ao objeto serializado
+    ratingCount: barbershop._count.ratings,
     services: barbershop.services.map(service => ({
       ...service,
       price: Number(service.price),

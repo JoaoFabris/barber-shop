@@ -77,12 +77,9 @@ const BookingItem = ({ booking }: BookingItemProps) => {
     try {
       await rateBarbershop(booking.barbershop.id, rating);
       toast.success("Avaliação enviada com sucesso!");
-      console.log(rating, );
-
       setSheetOpen(false); // Fecha o Sheet após avaliação bem-sucedida
-    } catch (error) {
-      console.error("Erro ao enviar avaliação:", error);
-      toast.error("Erro ao enviar avaliação.");
+    } catch (_error) {
+      toast.error("Erro ao enviar avaliação.",);
     }
   };
 

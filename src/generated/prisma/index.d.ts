@@ -3937,10 +3937,12 @@ export namespace Prisma {
 
   export type BarbershopAvgAggregateOutputType = {
     averageRating: number | null
+    ratingCount: number | null
   }
 
   export type BarbershopSumAggregateOutputType = {
     averageRating: number | null
+    ratingCount: number | null
   }
 
   export type BarbershopMinAggregateOutputType = {
@@ -3949,6 +3951,7 @@ export namespace Prisma {
     address: string | null
     imageUrl: string | null
     averageRating: number | null
+    ratingCount: number | null
   }
 
   export type BarbershopMaxAggregateOutputType = {
@@ -3957,6 +3960,7 @@ export namespace Prisma {
     address: string | null
     imageUrl: string | null
     averageRating: number | null
+    ratingCount: number | null
   }
 
   export type BarbershopCountAggregateOutputType = {
@@ -3965,16 +3969,19 @@ export namespace Prisma {
     address: number
     imageUrl: number
     averageRating: number
+    ratingCount: number
     _all: number
   }
 
 
   export type BarbershopAvgAggregateInputType = {
     averageRating?: true
+    ratingCount?: true
   }
 
   export type BarbershopSumAggregateInputType = {
     averageRating?: true
+    ratingCount?: true
   }
 
   export type BarbershopMinAggregateInputType = {
@@ -3983,6 +3990,7 @@ export namespace Prisma {
     address?: true
     imageUrl?: true
     averageRating?: true
+    ratingCount?: true
   }
 
   export type BarbershopMaxAggregateInputType = {
@@ -3991,6 +3999,7 @@ export namespace Prisma {
     address?: true
     imageUrl?: true
     averageRating?: true
+    ratingCount?: true
   }
 
   export type BarbershopCountAggregateInputType = {
@@ -3999,6 +4008,7 @@ export namespace Prisma {
     address?: true
     imageUrl?: true
     averageRating?: true
+    ratingCount?: true
     _all?: true
   }
 
@@ -4094,6 +4104,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating: number
+    ratingCount: number
     _count: BarbershopCountAggregateOutputType | null
     _avg: BarbershopAvgAggregateOutputType | null
     _sum: BarbershopSumAggregateOutputType | null
@@ -4121,6 +4132,7 @@ export namespace Prisma {
     address?: boolean
     imageUrl?: boolean
     averageRating?: boolean
+    ratingCount?: boolean
     services?: boolean | Barbershop$servicesArgs<ExtArgs>
     bookings?: boolean | Barbershop$bookingsArgs<ExtArgs>
     ratings?: boolean | Barbershop$ratingsArgs<ExtArgs>
@@ -4133,6 +4145,7 @@ export namespace Prisma {
     address?: boolean
     imageUrl?: boolean
     averageRating?: boolean
+    ratingCount?: boolean
   }, ExtArgs["result"]["barbershop"]>
 
   export type BarbershopSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -4141,6 +4154,7 @@ export namespace Prisma {
     address?: boolean
     imageUrl?: boolean
     averageRating?: boolean
+    ratingCount?: boolean
   }, ExtArgs["result"]["barbershop"]>
 
   export type BarbershopSelectScalar = {
@@ -4149,9 +4163,10 @@ export namespace Prisma {
     address?: boolean
     imageUrl?: boolean
     averageRating?: boolean
+    ratingCount?: boolean
   }
 
-  export type BarbershopOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "imageUrl" | "averageRating", ExtArgs["result"]["barbershop"]>
+  export type BarbershopOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "name" | "address" | "imageUrl" | "averageRating" | "ratingCount", ExtArgs["result"]["barbershop"]>
   export type BarbershopInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     services?: boolean | Barbershop$servicesArgs<ExtArgs>
     bookings?: boolean | Barbershop$bookingsArgs<ExtArgs>
@@ -4174,6 +4189,7 @@ export namespace Prisma {
       address: string
       imageUrl: string
       averageRating: number
+      ratingCount: number
     }, ExtArgs["result"]["barbershop"]>
     composites: {}
   }
@@ -4605,6 +4621,7 @@ export namespace Prisma {
     readonly address: FieldRef<"Barbershop", 'String'>
     readonly imageUrl: FieldRef<"Barbershop", 'String'>
     readonly averageRating: FieldRef<"Barbershop", 'Float'>
+    readonly ratingCount: FieldRef<"Barbershop", 'Int'>
   }
     
 
@@ -10532,7 +10549,8 @@ export namespace Prisma {
     name: 'name',
     address: 'address',
     imageUrl: 'imageUrl',
-    averageRating: 'averageRating'
+    averageRating: 'averageRating',
+    ratingCount: 'ratingCount'
   };
 
   export type BarbershopScalarFieldEnum = (typeof BarbershopScalarFieldEnum)[keyof typeof BarbershopScalarFieldEnum]
@@ -10843,6 +10861,7 @@ export namespace Prisma {
     address?: StringFilter<"Barbershop"> | string
     imageUrl?: StringFilter<"Barbershop"> | string
     averageRating?: FloatFilter<"Barbershop"> | number
+    ratingCount?: IntFilter<"Barbershop"> | number
     services?: ServiceListRelationFilter
     bookings?: BookingListRelationFilter
     ratings?: RatingListRelationFilter
@@ -10854,6 +10873,7 @@ export namespace Prisma {
     address?: SortOrder
     imageUrl?: SortOrder
     averageRating?: SortOrder
+    ratingCount?: SortOrder
     services?: ServiceOrderByRelationAggregateInput
     bookings?: BookingOrderByRelationAggregateInput
     ratings?: RatingOrderByRelationAggregateInput
@@ -10868,6 +10888,7 @@ export namespace Prisma {
     address?: StringFilter<"Barbershop"> | string
     imageUrl?: StringFilter<"Barbershop"> | string
     averageRating?: FloatFilter<"Barbershop"> | number
+    ratingCount?: IntFilter<"Barbershop"> | number
     services?: ServiceListRelationFilter
     bookings?: BookingListRelationFilter
     ratings?: RatingListRelationFilter
@@ -10879,6 +10900,7 @@ export namespace Prisma {
     address?: SortOrder
     imageUrl?: SortOrder
     averageRating?: SortOrder
+    ratingCount?: SortOrder
     _count?: BarbershopCountOrderByAggregateInput
     _avg?: BarbershopAvgOrderByAggregateInput
     _max?: BarbershopMaxOrderByAggregateInput
@@ -10895,6 +10917,7 @@ export namespace Prisma {
     address?: StringWithAggregatesFilter<"Barbershop"> | string
     imageUrl?: StringWithAggregatesFilter<"Barbershop"> | string
     averageRating?: FloatWithAggregatesFilter<"Barbershop"> | number
+    ratingCount?: IntWithAggregatesFilter<"Barbershop"> | number
   }
 
   export type ServiceWhereInput = {
@@ -11355,6 +11378,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     services?: ServiceCreateNestedManyWithoutBarbershopInput
     bookings?: BookingCreateNestedManyWithoutBarbershopInput
     ratings?: RatingCreateNestedManyWithoutBarbershopInput
@@ -11366,6 +11390,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     services?: ServiceUncheckedCreateNestedManyWithoutBarbershopInput
     bookings?: BookingUncheckedCreateNestedManyWithoutBarbershopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutBarbershopInput
@@ -11377,6 +11402,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     services?: ServiceUpdateManyWithoutBarbershopNestedInput
     bookings?: BookingUpdateManyWithoutBarbershopNestedInput
     ratings?: RatingUpdateManyWithoutBarbershopNestedInput
@@ -11388,6 +11414,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     services?: ServiceUncheckedUpdateManyWithoutBarbershopNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutBarbershopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutBarbershopNestedInput
@@ -11399,6 +11426,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
   }
 
   export type BarbershopUpdateManyMutationInput = {
@@ -11407,6 +11435,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type BarbershopUncheckedUpdateManyInput = {
@@ -11415,6 +11444,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
   }
 
   export type ServiceCreateInput = {
@@ -12017,10 +12047,12 @@ export namespace Prisma {
     address?: SortOrder
     imageUrl?: SortOrder
     averageRating?: SortOrder
+    ratingCount?: SortOrder
   }
 
   export type BarbershopAvgOrderByAggregateInput = {
     averageRating?: SortOrder
+    ratingCount?: SortOrder
   }
 
   export type BarbershopMaxOrderByAggregateInput = {
@@ -12029,6 +12061,7 @@ export namespace Prisma {
     address?: SortOrder
     imageUrl?: SortOrder
     averageRating?: SortOrder
+    ratingCount?: SortOrder
   }
 
   export type BarbershopMinOrderByAggregateInput = {
@@ -12037,10 +12070,12 @@ export namespace Prisma {
     address?: SortOrder
     imageUrl?: SortOrder
     averageRating?: SortOrder
+    ratingCount?: SortOrder
   }
 
   export type BarbershopSumOrderByAggregateInput = {
     averageRating?: SortOrder
+    ratingCount?: SortOrder
   }
 
   export type FloatWithAggregatesFilter<$PrismaModel = never> = {
@@ -13265,6 +13300,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     services?: ServiceCreateNestedManyWithoutBarbershopInput
     bookings?: BookingCreateNestedManyWithoutBarbershopInput
   }
@@ -13275,6 +13311,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     services?: ServiceUncheckedCreateNestedManyWithoutBarbershopInput
     bookings?: BookingUncheckedCreateNestedManyWithoutBarbershopInput
   }
@@ -13338,6 +13375,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     services?: ServiceUpdateManyWithoutBarbershopNestedInput
     bookings?: BookingUpdateManyWithoutBarbershopNestedInput
   }
@@ -13348,6 +13386,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     services?: ServiceUncheckedUpdateManyWithoutBarbershopNestedInput
     bookings?: BookingUncheckedUpdateManyWithoutBarbershopNestedInput
   }
@@ -13494,6 +13533,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     bookings?: BookingCreateNestedManyWithoutBarbershopInput
     ratings?: RatingCreateNestedManyWithoutBarbershopInput
   }
@@ -13504,6 +13544,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     bookings?: BookingUncheckedCreateNestedManyWithoutBarbershopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutBarbershopInput
   }
@@ -13554,6 +13595,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     bookings?: BookingUpdateManyWithoutBarbershopNestedInput
     ratings?: RatingUpdateManyWithoutBarbershopNestedInput
   }
@@ -13564,6 +13606,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     bookings?: BookingUncheckedUpdateManyWithoutBarbershopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutBarbershopNestedInput
   }
@@ -13644,6 +13687,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     services?: ServiceCreateNestedManyWithoutBarbershopInput
     ratings?: RatingCreateNestedManyWithoutBarbershopInput
   }
@@ -13654,6 +13698,7 @@ export namespace Prisma {
     address: string
     imageUrl: string
     averageRating?: number
+    ratingCount?: number
     services?: ServiceUncheckedCreateNestedManyWithoutBarbershopInput
     ratings?: RatingUncheckedCreateNestedManyWithoutBarbershopInput
   }
@@ -13746,6 +13791,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     services?: ServiceUpdateManyWithoutBarbershopNestedInput
     ratings?: RatingUpdateManyWithoutBarbershopNestedInput
   }
@@ -13756,6 +13802,7 @@ export namespace Prisma {
     address?: StringFieldUpdateOperationsInput | string
     imageUrl?: StringFieldUpdateOperationsInput | string
     averageRating?: FloatFieldUpdateOperationsInput | number
+    ratingCount?: IntFieldUpdateOperationsInput | number
     services?: ServiceUncheckedUpdateManyWithoutBarbershopNestedInput
     ratings?: RatingUncheckedUpdateManyWithoutBarbershopNestedInput
   }

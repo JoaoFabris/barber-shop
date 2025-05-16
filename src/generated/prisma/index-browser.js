@@ -143,7 +143,8 @@ exports.Prisma.BarbershopScalarFieldEnum = {
   name: 'name',
   address: 'address',
   imageUrl: 'imageUrl',
-  averageRating: 'averageRating'
+  averageRating: 'averageRating',
+  ratingCount: 'ratingCount'
 };
 
 exports.Prisma.ServiceScalarFieldEnum = {
