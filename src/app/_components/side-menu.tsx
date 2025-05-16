@@ -14,7 +14,6 @@ import { AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-
 const SideMenu = () => {
   const { data } = useSession();
 
@@ -23,7 +22,6 @@ const SideMenu = () => {
   };
 
   const handleLogout = () => {
-
     signOut();
   };
   return (
@@ -33,7 +31,7 @@ const SideMenu = () => {
       </SheetHeader>
 
       {data?.user ? (
-        <div className="flex justify-beetween px-5 py-6 items-center">
+        <div className="flex justify-between px-5 py-6 items-center">
           <div className="flex items-center gap-3">
             <Avatar>
               <AvatarImage
@@ -45,9 +43,9 @@ const SideMenu = () => {
 
             <h2 className="font-bold">{data.user.name}</h2>
           </div>
-          <Button variant="secondary" size="icon" onClick={handleLogout}>
-            <LogOutIcon />
-          </Button>
+            <Button variant="secondary" size="icon" onClick={handleLogout}>
+              <LogOutIcon />
+            </Button>
         </div>
       ) : (
         <div className="gap-3 px-5 py-6 flex flex-col">

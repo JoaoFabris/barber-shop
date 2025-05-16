@@ -12,7 +12,6 @@ import { authOptions } from "../_lib/auth";
 export default async function Home() {
   const session = await getServerSession(authOptions);
   // o promise.all executa paralelamente o barbershops e confirmedBookings
-  //TODO: create recommend sort 
   const [barbershops, confirmedBookingsRaw] = await Promise.all([
     db.barbershop.findMany({}),
     session
