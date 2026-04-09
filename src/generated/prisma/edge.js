@@ -201,7 +201,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/fabris/barber-shop-project/barber-shop/src/generated/prisma",
+      "value": "/home/fabris/projects/barber-shop/src/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -210,17 +210,16 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "debian-openssl-1.1.x",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "/home/fabris/barber-shop-project/barber-shop/prisma/schema.prisma",
+    "sourceFilePath": "/home/fabris/projects/barber-shop/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
-    "schemaEnvPath": "../../../.env"
+    "rootEnvPath": null
   },
   "relativePath": "../../../prisma",
   "clientVersion": "6.7.0",
