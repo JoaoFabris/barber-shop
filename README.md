@@ -1,39 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
- PROJECT MOBILE FIRST
-## Getting Started
+# 💈 Barber Shop
 
-First, run the development server:
+Aplicação web fullstack para agendamento de serviços em barbearias, com autenticação via Google, listagem de barbearias, reserva de horários e sistema de avaliações.
+
+## 🚀 Tecnologias
+
+- **[Next.js 16](https://nextjs.org/)** — Framework React com App Router
+- **[TypeScript](https://www.typescriptlang.org/)** — Tipagem estática
+- **[Prisma](https://www.prisma.io/)** — ORM para banco de dados
+- **[PostgreSQL](https://www.postgresql.org/)** — Banco de dados relacional (via Supabase)
+- **[NextAuth.js](https://next-auth.js.org/)** — Autenticação com Google OAuth
+- **[Tailwind CSS](https://tailwindcss.com/)** — Estilização utilitária
+- **[shadcn/ui](https://ui.shadcn.com/)** — Componentes de UI
+- **[Vercel](https://vercel.com/)** — Deploy e hospedagem
+
+## ✨ Funcionalidades
+
+- Autenticação com conta Google
+- Listagem e busca de barbearias
+- Visualização de serviços por barbearia
+- Agendamento de horários
+- Cancelamento de agendamentos
+- Sistema de avaliações com média por barbearia
+- Menu lateral com histórico de agendamentos
+
+## 📁 Estrutura do Projeto
+
+```
+src/
+├── app/
+│   ├── (home)/          # Página inicial com busca e listagem
+│   ├── _action/         # Server actions (cancelamento, avaliação)
+│   ├── _components/     # Componentes globais (header, footer, etc.)
+│   ├── _lib/            # Configurações de auth e Prisma
+│   ├── _providers/      # Providers de contexto
+│   ├── api/             # Rotas de API (NextAuth)
+│   ├── barbershops/     # Páginas de barbearias e agendamento
+│   └── bookings/        # Página de agendamentos do usuário
+├── components/ui/       # Componentes shadcn/ui
+└── lib/                 # Utilitários
+prisma/
+├── migrations/          # Histórico de migrations
+├── schema.prisma        # Schema do banco de dados
+└── seed.ts              # Script de seed
+```
+
+## ⚙️ Como rodar localmente
+
+### Pré-requisitos
+
+- Node.js 18+
+- PostgreSQL (ou conta no [Supabase](https://supabase.com))
+- Conta no [Google Cloud Console](https://console.cloud.google.com) para OAuth
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/JoaoFabris/barber-shop.git
+cd barber-shop
+```
+
+### 2. Instale as dependências
+
+```bash
+npm install --legacy-peer-deps
+```
+
+### 3. Configure as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```env
+# Supabase - Transaction pooler (porta 6543)
+DATABASE_URL="postgresql://postgres.xxxx:SENHA@aws-0-us-east-1.pooler.supabase.com:6543/postgres?pgbouncer=true&connection_limit=1"
+
+# Supabase - Session pooler (para migrations)
+DIRECT_URL="postgresql://postgres.xxxx:SENHA@aws-0-us-east-1.pooler.supabase.com:5432/postgres"
+
+# NextAuth
+NEXT_AUTH_SECRET="gere com: openssl rand -base64 32"
+NEXTAUTH_URL="http://localhost:3000"
+
+# Google OAuth
+GOOGLE_CLIENT_ID="seu_client_id.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET="seu_client_secret"
+```
+
+### 4. Execute as migrations e o seed
+
+```bash
+npx prisma migrate deploy
+npx prisma db seed
+```
+
+### 5. Inicie o servidor de desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🗄️ Banco de Dados
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+O projeto usa **Supabase** como provedor PostgreSQL. As migrations estão em `prisma/migrations/` e cobrem:
 
-## Learn More
+- Tabelas iniciais (barbearias, serviços)
+- URL de imagem para serviços
+- Tabelas de usuário e autenticação
+- Correções do NextAuth
+- Status de agendamentos
+- Sistema de avaliações e médias
 
-To learn more about Next.js, take a look at the following resources:
+## 🔐 Autenticação
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+A autenticação é feita via **Google OAuth** com NextAuth.js. Para configurar:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Acesse o [Google Cloud Console](https://console.cloud.google.com)
+2. Crie um projeto e vá em **APIs & Services → Credentials**
+3. Crie um **OAuth 2.0 Client ID** do tipo "Web application"
+4. Adicione `http://localhost:3000/api/auth/callback/google` como URI de redirecionamento autorizado
+5. Copie o Client ID e Client Secret para o `.env`
 
-## Deploy on Vercel
+## 🚢 Deploy
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+O projeto está configurado para deploy na **Vercel**. Configure as variáveis de ambiente em **Settings → Environment Variables** com os mesmos valores do `.env` local.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# Barber-shop-fullstack
-# barber-shop
-# barber-shop
+```bash
+# Build de produção
+npm run build
+```
+
+## 📜 Scripts disponíveis
+
+| Script | Descrição |
+|---|---|
+| `npm run dev` | Servidor de desenvolvimento |
+| `npm run build` | Build de produção |
+| `npm run start` | Inicia em modo produção |
+| `npm run lint` | Verifica erros de lint |
+| `npx prisma studio` | Interface visual do banco |
+| `npx prisma db seed` | Popula o banco com dados iniciais |
